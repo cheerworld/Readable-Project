@@ -17,3 +17,12 @@ export const getAllCategory = async () => {
   console.log(response)
   return categories;
 }
+
+export const getAllPosts = async () => {
+
+  const response = await fetch(`${api}/posts`, {
+    method: "GET",
+    headers });
+  const posts = await response.json();
+  return posts;
+}
