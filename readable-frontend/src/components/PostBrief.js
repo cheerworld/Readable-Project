@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { connect } from "react-redux";
 import { formatDate } from "../utils/api";
+import { GoArrowUp, GoArrowDown } from "react-icons/go";
+
 
 function PostBrief(props) {
   console.log(props.newPost);
@@ -15,7 +17,7 @@ function PostBrief(props) {
         </div>
         <h3>{title}</h3>
         <p>{commentCount} comments</p>
-        <p>{voteScore} votes</p>
+        <p><GoArrowUp/>{voteScore} votes<GoArrowDown/></p>
       </div>
     </ListGroup.Item>
   );
