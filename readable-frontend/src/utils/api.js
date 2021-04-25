@@ -20,7 +20,7 @@ export function generateId() {
   );
 }
 
-export const addNewPost = async (post) => {
+export const addPostToServer = async (post) => {
   console.log(post);
   const response = await fetch(`${api}/posts`, {
     method: "POST",

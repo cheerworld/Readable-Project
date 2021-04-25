@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { generateId, addNewPost } from "../utils/api";
+import { generateId } from "../utils/api";
+import { handleAddPost } from "../actions/posts";
 
 function CreatePost(props) {
   const [title, onChangeTitle] = useState("");
@@ -21,15 +22,14 @@ function CreatePost(props) {
       author: name,
       category: selectCategory,
     };
-
-    const asyncNewPost = addNewPost(newPost);
-    console.log(asyncNewPost);
+    props.dispatch(handleAddPost(newPost));
 
     onChangeText("");
     onChangeTitle("");
     onChangeName("");
     onChangeCategory("select");
-    //}
+
+    props.history.push("/");
   };
 
   return (
