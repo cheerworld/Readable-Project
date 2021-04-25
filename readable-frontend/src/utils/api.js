@@ -13,6 +13,28 @@ export function formatDate(timestamp) {
   return d.toLocaleDateString() + " | " + time.substr(0, 5) + time.slice(-2);
 }
 
+export function generateId() {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+}
+
+export const addNewPost = async (post) => {
+  console.log(post);
+  const response = await fetch(`${api}/posts`, {
+    method: "POST",
+    headers: {
+      ...headers,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(post),
+  });
+  const newPosts = await response.json();
+  console.log(newPosts);
+  return newPosts;
+};
+
 export const getAllCategory = async () => {
   const response = await fetch(`${api}/categories`, {
     method: "GET",

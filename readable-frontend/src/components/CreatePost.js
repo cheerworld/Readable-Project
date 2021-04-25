@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { generateId, addNewPost } from "../utils/api";
 
 function CreatePost(props) {
   const [title, onChangeTitle] = useState("");
@@ -9,10 +10,20 @@ function CreatePost(props) {
   const [name, onChangeName] = useState("");
   const [selectCategory, onChangeCategory] = useState("select");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    //if(title!==""){
     console.log(title, text, name, selectCategory);
+    const newPost = {
+      id: generateId(),
+      timestamp: Date.now(),
+      title,
+      body: text,
+      author: name,
+      category: selectCategory,
+    };
+
+    const asyncNewPost = addNewPost(newPost);
+    console.log(asyncNewPost);
 
     onChangeText("");
     onChangeTitle("");
