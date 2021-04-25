@@ -3,10 +3,16 @@ import { connect } from "react-redux";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { withRouter } from "react-router-dom";
 
 function Header(props) {
-  console.log(props.names);
+  console.log(props);
   const { names } = props;
+
+  const toCategory = (e, name) => {
+    props.history.push(`/${name}`);
+  };
+
   return (
     <Navbar bg="light" expand="lg" className="nav">
       <Navbar.Brand>Readable</Navbar.Brand>
@@ -15,7 +21,9 @@ function Header(props) {
           <Nav.Link>Home</Nav.Link>
           <NavDropdown title="Categories" id="basic-nav-dropdown">
             {names.map((name) => (
-              <NavDropdown.Item key={name}>{name}</NavDropdown.Item>
+              <NavDropdown.Item key={name} onClick={(e) => toCategory(e, name)}>
+                {name}
+              </NavDropdown.Item>
             ))}
           </NavDropdown>
           <Nav.Link>Create Post</Nav.Link>
@@ -33,4 +41,4 @@ function mapStateToProps({ categories }) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));
