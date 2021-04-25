@@ -6,14 +6,18 @@ import Button from "react-bootstrap/Button";
 function CreatePost(props) {
   const [title, onChangeTitle] = useState("");
   const [text, onChangeText] = useState("");
+  const [name, onChangeName] = useState("");
+  const [selectCategory, onChangeCategory] = useState("select");
 
   const onSubmit = (e) => {
     e.preventDefault();
     //if(title!==""){
-    console.log(title, text);
+    console.log(title, text, name, selectCategory);
 
     onChangeText("");
     onChangeTitle("");
+    onChangeName("");
+    onChangeCategory("select");
     //}
   };
 
@@ -38,12 +42,53 @@ function CreatePost(props) {
           onChange={(e) => onChangeText(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" disabled={title === ""}>
+      <Form.Group>
+        <Form.Label>Author</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter your name here"
+          value={name}
+          onChange={(e) => onChangeName(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Category</Form.Label>
+        <Form.Control
+          as="select"
+          value={selectCategory}
+          onChange={(e) => onChangeCategory(e.target.value)}
+        >
+          <option disabled value="select" hidden>
+            Select Category
+          </option>
+          {props.allCategory.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </Form.Control>
+      </Form.Group>
+      <Button
+        variant="primary"
+        type="submit"
+        disabled={
+          title === "" ||
+          text === "" ||
+          name === "" ||
+          selectCategory === "select"
+        }
+      >
         Submit
       </Button>
     </Form>
   );
 }
 
-function mapStateToProps() {}
+function mapStateToProps({ categories }) {
+  const allCategory = categories.map((categoty) => categoty.name);
+  console.log(allCategory);
+  return {
+    allCategory,
+  };
+}
 export default connect(mapStateToProps)(CreatePost);
