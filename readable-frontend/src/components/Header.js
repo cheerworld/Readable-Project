@@ -10,7 +10,7 @@ function Header(props) {
   const { names, history } = props;
 
   const toCategory = (e, name) => {
-    history.push(`/posts/${name}`);
+    history.push(`/categories/${name}`);
   };
 
   const createPost = () => {

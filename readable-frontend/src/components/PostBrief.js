@@ -3,13 +3,15 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { connect } from "react-redux";
 import { formatDate } from "../utils/api";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 
 function PostBrief(props) {
   console.log(props.newPost);
-  const { title, author, commentCount, time, voteScore } = props.newPost;
+  const { id, title, author, commentCount, time, voteScore } = props.newPost;
+
   return (
-    <ListGroup.Item action>
+    <ListGroup.Item as={Link} action to={`/posts/${id}`}>
       <div>
         <div>
           <p>Posted by {author}</p>
@@ -26,11 +28,12 @@ function PostBrief(props) {
 function mapStateToProps({ posts }, { postId }) {
   const newPost = posts.filter((post) => post.id === postId);
 
-  const { title, author, commentCount, timestamp, voteScore } = newPost[0];
+  const { id, title, author, commentCount, timestamp, voteScore } = newPost[0];
   const time = formatDate(timestamp);
   console.log(newPost);
   return {
     newPost: {
+      id,
       title,
       author,
       commentCount,

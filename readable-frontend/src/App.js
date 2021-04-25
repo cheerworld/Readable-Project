@@ -8,6 +8,7 @@ import PostList from "./components/PostList";
 import Header from "./components/Header";
 import CreatePost from "./components/CreatePost";
 import CategoryPosts from "./components/CategoryPosts";
+import PostView from "./components/PostView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
@@ -28,7 +29,8 @@ function App(props) {
         <Header />
         <Switch>
           <Route path="/" exact component={PostList} />
-          <Route path="/posts/:name" component={CategoryPosts} />
+          <Route path="/categories/:name" component={CategoryPosts} />
+          <Route path="/posts/:id" component={PostView} />
           <Route path="/createPost" component={CreatePost} />
         </Switch>
       </div>
