@@ -13,16 +13,6 @@ export function formatDate(timestamp) {
   return d.toLocaleDateString() + " | " + time.substr(0, 5) + time.slice(-2);
 }
 
-export const getCategoryPosts = async (category) => {
-  const response = await fetch(`${api}/${category}/posts`, {
-    method: "GET",
-    headers,
-  });
-  const posts = await response.json();
-  console.log(response,posts);
-  return posts;
-}
-
 export const getAllCategory = async () => {
   const response = await fetch(`${api}/categories`, {
     method: "GET",

@@ -23,7 +23,7 @@ function PostList(props) {
             below to navigates to home view.
           </Card.Text>
           <Button variant="primary" onClick={home}>
-            Go somewhere
+            Home
           </Button>
         </Card.Body>
       </Card>

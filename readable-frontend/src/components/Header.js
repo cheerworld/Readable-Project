@@ -7,18 +7,26 @@ import { withRouter } from "react-router-dom";
 
 function Header(props) {
   console.log(props);
-  const { names } = props;
+  const { names, history } = props;
 
   const toCategory = (e, name) => {
-    props.history.push(`/${name}`);
+    history.push(`/posts/${name}`);
   };
+
+  const createPost = () => {
+    history.push(`/createPost`);
+  }
+
+  const toHome = () => {
+    history.push(`/`);
+  }
 
   return (
     <Navbar bg="light" expand="lg" className="nav">
       <Navbar.Brand>Readable</Navbar.Brand>
       <Navbar.Collapse className="justify-content-end">
         <Nav variant="pills" className="mr-auto">
-          <Nav.Link>Home</Nav.Link>
+          <Nav.Link onClick={toHome}>Home</Nav.Link>
           <NavDropdown title="Categories" id="basic-nav-dropdown">
             {names.map((name) => (
               <NavDropdown.Item key={name} onClick={(e) => toCategory(e, name)}>
@@ -26,7 +34,7 @@ function Header(props) {
               </NavDropdown.Item>
             ))}
           </NavDropdown>
-          <Nav.Link>Create Post</Nav.Link>
+          <Nav.Link onClick={createPost}>Create Post</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
