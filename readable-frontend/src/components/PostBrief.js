@@ -30,7 +30,7 @@ function mapStateToProps({ posts }, { postId }) {
 
   const { id, title, author, commentCount, timestamp, voteScore } = newPost[0];
   const time = formatDate(timestamp);
-  console.log(newPost);
+  
   return {
     newPost: {
       id,

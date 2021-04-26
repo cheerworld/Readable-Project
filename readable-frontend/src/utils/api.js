@@ -20,6 +20,30 @@ export function generateId() {
   );
 }
 
+export const editPostToServer = async (post) => {
+  const response = await fetch(`${api}/posts/${post.id}`, {
+    method: "PUT",
+    headers: {
+      ...headers,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(post),
+  });
+  const editedPost = await response.json();
+  console.log(editedPost);
+  return editedPost;
+};
+
+export const deletePost = async (id) => {
+  const response = await fetch(`${api}/posts/${id}`, {
+    method: "DELETE",
+    headers,
+  });
+  const post = await response.json();
+  console.log(post);
+  return post;
+};
+
 export const addPostToServer = async (post) => {
   console.log(post);
   const response = await fetch(`${api}/posts`, {

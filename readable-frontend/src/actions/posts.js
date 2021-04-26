@@ -1,6 +1,13 @@
-import { getAllPosts, addPostToServer } from "../utils/api";
+import {
+  getAllPosts,
+  addPostToServer,
+  deletePost,
+  editPostToServer,
+} from "../utils/api";
 export const GET_ALLPOSTS = "GET_ALLPOSTS";
 export const ADD_NEWPOST = "ADD_NEWPOST";
+export const DELETE_POST = "DELETE_POST";
+export const EDIT_POST = "EDIT_POST";
 
 export function getPosts(posts) {
   return {
@@ -13,6 +20,44 @@ export function addNewPost(post) {
   return {
     type: ADD_NEWPOST,
     post,
+  };
+}
+
+export function deleteAPost(postId) {
+  return {
+    type: DELETE_POST,
+    postId,
+  };
+}
+
+export function editPost(post) {
+  return {
+    type: EDIT_POST,
+    post,
+  };
+}
+
+export function handleEditPost(post) {
+  return (dispatch) => {
+    return editPostToServer(post)
+      .then((data) => {
+        dispatch(editPost(data));
+      })
+      .catch((e) => {
+        console.warn("Error in handleEditPost: ", e);
+      });
+  };
+}
+
+export function handleDeletePost(postId) {
+  return (dispatch) => {
+    return deletePost(postId)
+      .then((data) => {
+        dispatch(deleteAPost(postId));
+      })
+      .catch((e) => {
+        console.warn("Error in handleAddPost: ", e);
+      });
   };
 }
 

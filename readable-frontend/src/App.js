@@ -32,6 +32,7 @@ function App(props) {
           <Route path="/categories/:name" component={CategoryPosts} />
           <Route path="/posts/:id" component={PostView} />
           <Route path="/createPost" component={CreatePost} />
+          <Route path="/edit/:postId" component={CreatePost} />
         </Switch>
       </div>
     </Router>

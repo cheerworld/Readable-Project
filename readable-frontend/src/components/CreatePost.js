@@ -2,27 +2,54 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { generateId } from "../utils/api";
-import { handleAddPost } from "../actions/posts";
+import { generateId, editPostToServer } from "../utils/api";
+import { handleAddPost, handleEditPost } from "../actions/posts";
 
 function CreatePost(props) {
   const [title, onChangeTitle] = useState("");
   const [text, onChangeText] = useState("");
   const [name, onChangeName] = useState("");
   const [selectCategory, onChangeCategory] = useState("select");
+  const { allCategory, postId, post } = props;
 
+  useEffect(() => {
+    function editPost() {
+      if (postId && post.length !== 0) {
+        onChangeTitle(post[0].title);
+        onChangeText(post[0].body);
+        onChangeName(post[0].author);
+        onChangeCategory(post[0].category);
+      }
+    }
+    editPost();
+  }, []);
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(title, text, name, selectCategory);
-    const newPost = {
-      id: generateId(),
-      timestamp: Date.now(),
-      title,
-      body: text,
-      author: name,
-      category: selectCategory,
-    };
-    props.dispatch(handleAddPost(newPost));
+
+    if (postId && post.length !== 0) {
+      const editPost = {
+        id: postId,
+        timestamp: Date.now(),
+        title,
+        body: text,
+        author: name,
+        category: selectCategory,
+      };
+
+      props.dispatch(handleEditPost(editPost));
+    } else {
+      const newPost = {
+        id: generateId(),
+        timestamp: Date.now(),
+        title,
+        body: text,
+        author: name,
+        category: selectCategory,
+      };
+
+      props.dispatch(handleAddPost(newPost));
+    }
 
     onChangeText("");
     onChangeTitle("");
@@ -72,7 +99,7 @@ function CreatePost(props) {
           <option disabled value="select" hidden>
             Select Category
           </option>
-          {props.allCategory.map((category) => (
+          {allCategory.map((category) => (
             <option key={category} value={category}>
               {category}
             </option>
@@ -95,11 +122,16 @@ function CreatePost(props) {
   );
 }
 
-function mapStateToProps({ categories }) {
+function mapStateToProps({ categories, posts }, props) {
   const allCategory = categories.map((categoty) => categoty.name);
   console.log(allCategory);
+  const { postId } = props.match.params;
+  const post = posts.filter((post) => post.id === postId);
+  console.log(postId, post);
   return {
     allCategory,
+    postId,
+    post,
   };
 }
 export default connect(mapStateToProps)(CreatePost);
