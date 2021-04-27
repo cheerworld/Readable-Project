@@ -20,6 +20,16 @@ export function generateId() {
   );
 }
 
+export const getCommentsFromServer = async (id) => {
+  const response = await fetch(`${api}/posts/${id}/comments`, {
+    method: "GET",
+    headers,
+  });
+  const comments = await response.json();
+  console.log(comments);
+  return comments;
+};
+
 export const editPostToServer = async (post) => {
   const response = await fetch(`${api}/posts/${post.id}`, {
     method: "PUT",
@@ -30,7 +40,7 @@ export const editPostToServer = async (post) => {
     body: JSON.stringify(post),
   });
   const editedPost = await response.json();
-  console.log(editedPost);
+  //console.log(editedPost);
   return editedPost;
 };
 
@@ -40,7 +50,6 @@ export const deletePost = async (id) => {
     headers,
   });
   const post = await response.json();
-  console.log(post);
   return post;
 };
 
@@ -55,7 +64,6 @@ export const addPostToServer = async (post) => {
     body: JSON.stringify(post),
   });
   const newPosts = await response.json();
-  console.log(newPosts);
   return newPosts;
 };
 
@@ -65,7 +73,6 @@ export const getAllCategory = async () => {
     headers,
   });
   const categories = await response.json();
-  console.log(response);
   return categories;
 };
 
