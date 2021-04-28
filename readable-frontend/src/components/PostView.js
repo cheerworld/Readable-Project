@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PostDetail from "./PostDetail";
 import CommentsList from "./CommentsList";
 import { handleGetComments } from "../actions/comments";
+import AddComment from "./AddComment";
 
 function PostView(props) {
   useEffect(() => {
@@ -19,6 +20,7 @@ function PostView(props) {
     <div>
       <h1>Post View</h1>
       <PostDetail postId={props.id} />
+      <AddComment postId={props.id} />
       <CommentsList postId={props.id} />
     </div>
   );

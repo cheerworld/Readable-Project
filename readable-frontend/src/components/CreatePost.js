@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { generateId, editPostToServer } from "../utils/api";
+import { generateId } from "../utils/api";
 import { handleAddPost, handleEditPost } from "../actions/posts";
 
 function CreatePost(props) {
@@ -72,7 +72,7 @@ function CreatePost(props) {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Text(Optional)</Form.Label>
+        <Form.Label>Text</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter your text here"
