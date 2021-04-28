@@ -1,6 +1,19 @@
-import { getCommentsFromServer, addCommentToPostServer } from "../utils/api";
+import {
+  getCommentsFromServer,
+  addCommentToPostServer,
+  deleteCommentToServer,
+} from "../utils/api";
 export const GET_ALLCOMMENTS = "GET_ALLCOMMENTS";
 export const ADD_COMMENT = "ADD_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+
+export function deleteAComment(parentId, id) {
+  return {
+    type: DELETE_COMMENT,
+    parentId,
+    id,
+  };
+}
 
 export function addAComment(comment) {
   return {
@@ -14,6 +27,18 @@ export function getComments(id, comments) {
     type: GET_ALLCOMMENTS,
     id,
     comments,
+  };
+}
+
+export function handleDeleteComment(id) {
+  return (dispatch) => {
+    return deleteCommentToServer(id)
+      .then((data) => {
+        dispatch(deleteAComment(data.parentId, data.id));
+      })
+      .catch((e) => {
+        console.warn("handleDeleteComment: ", e);
+      });
   };
 }
 

@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getCommentsFromServer } from "../utils/api";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { RiDeleteBinFill, RiEdit2Fill } from "react-icons/ri";
 import { formatDate } from "../utils/api";
+import { handleDeleteComment } from "../actions/comments";
 
 function CommentsList(props) {
   const { commentsForPost } = props;
+
+  const onClickDelete = (e, id) => {
+    e.preventDefault();
+    props.dispatch(handleDeleteComment(id));
+  }
 
   if (!commentsForPost || commentsForPost.length === 0) {
     return (
@@ -41,7 +46,7 @@ function CommentsList(props) {
                 <RiEdit2Fill />
                 Edit
               </Button>
-              <Button className="postDetailButton">
+              <Button className="postDetailButton" onClick={(e) => onClickDelete(e, comment.id)}>
                 <RiDeleteBinFill />
                 Delete
               </Button>

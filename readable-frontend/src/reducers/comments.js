@@ -1,4 +1,8 @@
-import { GET_ALLCOMMENTS, ADD_COMMENT } from "../actions/comments";
+import {
+  GET_ALLCOMMENTS,
+  ADD_COMMENT,
+  DELETE_COMMENT,
+} from "../actions/comments";
 
 export default function comments(state = {}, action) {
   switch (action.type) {
@@ -14,6 +18,14 @@ export default function comments(state = {}, action) {
           ...state[action.comment.parentId],
           action.comment,
         ],
+      };
+    case DELETE_COMMENT:
+      const newComment = state[action.parentId].filter((comment) => {
+        return comment.id !== action.id;
+      });
+      return {
+        ...state,
+        [action.parentId]: newComment,
       };
     default:
       return state;

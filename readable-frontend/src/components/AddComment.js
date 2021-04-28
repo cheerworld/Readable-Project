@@ -16,6 +16,8 @@ function AddComment(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(text, name);
+    onChangeText("");
+    onChangeName("");
     const newComment = {
       id: generateId(),
       timestamp: Date.now(),
