@@ -11,6 +11,10 @@ import { handleDeleteComment } from "../actions/comments";
 function CommentsList(props) {
   const { commentsForPost } = props;
 
+  const onClickEdit = (e, id) => {
+    e.preventDefault();
+  }
+
   const onClickDelete = (e, id) => {
     e.preventDefault();
     props.dispatch(handleDeleteComment(id));
@@ -25,6 +29,7 @@ function CommentsList(props) {
       </Card>
     );
   }
+
   return (
     <div>
       <h2>Comments List</h2>
@@ -42,7 +47,7 @@ function CommentsList(props) {
                 {comment.voteScore} votes
                 <GoArrowDown />
               </p>
-              <Button className="postDetailButton">
+              <Button className="postDetailButton" onClick={(e) => onClickEdit(e, comment.id)}>
                 <RiEdit2Fill />
                 Edit
               </Button>
