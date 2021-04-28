@@ -2,10 +2,12 @@ import {
   getCommentsFromServer,
   addCommentToPostServer,
   deleteCommentToServer,
+  editCommentToServer,
 } from "../utils/api";
 export const GET_ALLCOMMENTS = "GET_ALLCOMMENTS";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
+export const EDIT_COMMENT = "EDIT_COMMENT";
 
 export function deleteAComment(parentId, id) {
   return {
@@ -27,6 +29,25 @@ export function getComments(id, comments) {
     type: GET_ALLCOMMENTS,
     id,
     comments,
+  };
+}
+
+export function editComment(comment) {
+  return {
+    type: EDIT_COMMENT,
+    comment,
+  };
+}
+
+export function handleEditComment(comment) {
+  return (dispatch) => {
+    return editCommentToServer(comment)
+      .then((data) => {
+        dispatch(editComment(data));
+      })
+      .catch((e) => {
+        console.warn("handleEditComment: ", e);
+      });
   };
 }
 

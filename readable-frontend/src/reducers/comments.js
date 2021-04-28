@@ -2,6 +2,7 @@ import {
   GET_ALLCOMMENTS,
   ADD_COMMENT,
   DELETE_COMMENT,
+  EDIT_COMMENT,
 } from "../actions/comments";
 
 export default function comments(state = {}, action) {
@@ -26,6 +27,16 @@ export default function comments(state = {}, action) {
       return {
         ...state,
         [action.parentId]: newComment,
+      };
+    case EDIT_COMMENT:
+      const editedComment = state[action.comment.parentId]
+        .filter((data) => {
+          return data.id !== action.comment.id;
+        })
+        .concat([action.comment]);
+      return {
+        ...state,
+        [action.comment.parentId]: editedComment,
       };
     default:
       return state;

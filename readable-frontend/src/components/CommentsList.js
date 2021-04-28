@@ -7,18 +7,15 @@ import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { RiDeleteBinFill, RiEdit2Fill } from "react-icons/ri";
 import { formatDate } from "../utils/api";
 import { handleDeleteComment } from "../actions/comments";
+import EditComment from "./EditComment";
 
 function CommentsList(props) {
   const { commentsForPost } = props;
 
-  const onClickEdit = (e, id) => {
-    e.preventDefault();
-  }
-
   const onClickDelete = (e, id) => {
     e.preventDefault();
     props.dispatch(handleDeleteComment(id));
-  }
+  };
 
   if (!commentsForPost || commentsForPost.length === 0) {
     return (
@@ -47,11 +44,11 @@ function CommentsList(props) {
                 {comment.voteScore} votes
                 <GoArrowDown />
               </p>
-              <Button className="postDetailButton" onClick={(e) => onClickEdit(e, comment.id)}>
-                <RiEdit2Fill />
-                Edit
-              </Button>
-              <Button className="postDetailButton" onClick={(e) => onClickDelete(e, comment.id)}>
+              <EditComment commentId={comment.id} postId={props.postId} />
+              <Button
+                className="postDetailButton"
+                onClick={(e) => onClickDelete(e, comment.id)}
+              >
                 <RiDeleteBinFill />
                 Delete
               </Button>
