@@ -3,11 +3,13 @@ import {
   addCommentToPostServer,
   deleteCommentToServer,
   editCommentToServer,
+  voteCommentToServer,
 } from "../utils/api";
 export const GET_ALLCOMMENTS = "GET_ALLCOMMENTS";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
+export const VOTE_COMMENT = "VOTE_COMMENT";
 
 export function deleteAComment(parentId, id) {
   return {
@@ -36,6 +38,25 @@ export function editComment(comment) {
   return {
     type: EDIT_COMMENT,
     comment,
+  };
+}
+
+export function voteForComment(comment) {
+  return {
+    type: VOTE_COMMENT,
+    comment,
+  };
+}
+
+export function handleVoteComment(id, comment) {
+  return (dispatch) => {
+    return voteCommentToServer(id, comment)
+      .then((data) => {
+        dispatch(voteForComment(data));
+      })
+      .catch((e) => {
+        console.warn("handleVoteComment: ", e);
+      });
   };
 }
 

@@ -9,6 +9,14 @@
   border: none;
 }
 
+.upArrow {
+  color: #ff165d;
+}
+
+.downArrow {
+  color: #3ec1d3;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
