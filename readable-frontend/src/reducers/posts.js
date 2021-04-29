@@ -3,6 +3,7 @@ import {
   ADD_NEWPOST,
   DELETE_POST,
   EDIT_POST,
+  VOTE_POST,
 } from "../actions/posts";
 
 export default function posts(state = [], action) {
@@ -19,6 +20,11 @@ export default function posts(state = [], action) {
         .filter((data) => data.id !== action.post.id)
         .concat([action.post]);
       return editState;
+    case VOTE_POST:
+      const votedPost = state
+        .filter((data) => data.id !== action.post.id)
+        .concat([action.post]);
+      return votedPost;
     default:
       return state;
   }

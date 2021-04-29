@@ -20,6 +20,20 @@ export function generateId() {
   );
 }
 
+export const votePostToServer = async (id, option) => {
+  const response = await fetch(`${api}/posts/${id}`, {
+    method: "POST",
+    headers: {
+      ...headers,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(option),
+  });
+  const votedPost = await response.json();
+  console.log(votedPost);
+  return votedPost;
+};
+
 export const voteCommentToServer = async (id, option) => {
   const response = await fetch(`${api}/comments/${id}`, {
     method: "POST",

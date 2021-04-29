@@ -3,11 +3,13 @@ import {
   addPostToServer,
   deletePost,
   editPostToServer,
+  votePostToServer,
 } from "../utils/api";
 export const GET_ALLPOSTS = "GET_ALLPOSTS";
 export const ADD_NEWPOST = "ADD_NEWPOST";
 export const DELETE_POST = "DELETE_POST";
 export const EDIT_POST = "EDIT_POST";
+export const VOTE_POST = "VOTE_POST";
 
 export function getPosts(posts) {
   return {
@@ -34,6 +36,25 @@ export function editPost(post) {
   return {
     type: EDIT_POST,
     post,
+  };
+}
+
+export function votePost(post) {
+  return {
+    type: VOTE_POST,
+    post,
+  };
+}
+
+export function handleVotePost(id, post) {
+  return (dispatch) => {
+    return votePostToServer(id, post)
+      .then((data) => {
+        dispatch(votePost(data));
+      })
+      .catch((e) => {
+        console.warn("Error in handleVotePost: ", e);
+      });
   };
 }
 
