@@ -3,6 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { connect } from "react-redux";
 import Card from "react-bootstrap/Card";
 import PostBrief from "./PostBrief";
+import SortPosts from "./SortPosts";
 
 function PostList(props) {
   console.log(props);
@@ -19,9 +20,12 @@ function PostList(props) {
   }
 
   return (
-    <ListGroup>
-      {ids && ids.map((id) => <PostBrief key={id} postId={id} />)}
-    </ListGroup>
+    <div>
+      <SortPosts />
+      <ListGroup>
+        {ids && ids.map((id) => <PostBrief key={id} postId={id} />)}
+      </ListGroup>
+    </div>
   );
 }
 

@@ -10,6 +10,34 @@ export const ADD_NEWPOST = "ADD_NEWPOST";
 export const DELETE_POST = "DELETE_POST";
 export const EDIT_POST = "EDIT_POST";
 export const VOTE_POST = "VOTE_POST";
+export const SORT_POST_BY_VOTE_FROM_HIGH = "SORT_POST_BY_VOTE_FROM_HIGH";
+export const SORT_POST_BY_VOTE_FROM_LOW = "SORT_POST_BY_VOTE_FROM_LOW";
+export const SORT_POST_BY_DATE_LATEST = "SORT_POST_BY_DATE_LATEST";
+export const SORT_POST_BY_DATE_OLDEST = "SORT_POST_BY_DATE_OLDEST";
+
+export function sortByDateOldest() {
+  return {
+    type: SORT_POST_BY_DATE_OLDEST,
+  };
+}
+
+export function sortByDateLatest() {
+  return {
+    type: SORT_POST_BY_DATE_LATEST,
+  };
+}
+
+export function sortByVoteLow() {
+  return {
+    type: SORT_POST_BY_VOTE_FROM_LOW,
+  };
+}
+
+export function sortByVoteHigh() {
+  return {
+    type: SORT_POST_BY_VOTE_FROM_HIGH,
+  };
+}
 
 export function getPosts(posts) {
   return {
@@ -48,12 +76,13 @@ export function votePost(post) {
 
 export function handleVotePost(id, post) {
   return (dispatch) => {
-    localStorage.setItem(id, post.option);
-    const value = localStorage.getItem(id);
-    console.log(value);
+
     return votePostToServer(id, post)
       .then((data) => {
         dispatch(votePost(data));
+        localStorage.setItem(id, post.option);
+        const value = localStorage.getItem(id);
+        console.log(value);
       })
       .catch((e) => {
         console.warn("Error in handleVotePost: ", e);

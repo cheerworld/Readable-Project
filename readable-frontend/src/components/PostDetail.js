@@ -13,7 +13,7 @@ function PostDetail(props) {
   const [downVoteDisable, onChangeDownVoteDisable] = useState(false);
   const [color, onChangeColor] = useState("black");
 
-  
+
   useEffect(() => {
     function getVoteValue() {
       if (props.newPost !== null) {
@@ -29,8 +29,12 @@ function PostDetail(props) {
         }
       }
     }
+    window.addEventListener("storage", getVoteValue);
 
-    getVoteValue();
+
+    return () => {
+      window.removeEventListener("storage", getVoteValue)
+    }
   }, [props.newPost])
 
   if (props.newPost === null) {
