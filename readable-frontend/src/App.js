@@ -14,15 +14,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function App(props) {
 
   const { dispatch } = props;
-  
+
   useEffect(() => {
     async function fetchData() {
-      props.dispatch(handleGetCategories());
-      props.dispatch(handleGetPosts());
+      dispatch(handleGetCategories());
+      dispatch(handleGetPosts());
 
     }
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>

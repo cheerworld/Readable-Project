@@ -50,12 +50,12 @@ export function voteForComment(comment) {
 
 export function handleVoteComment(id, comment) {
   return (dispatch) => {
+    localStorage.setItem(id, comment.option);
+    const value = localStorage.getItem(id);
+    console.log(value);
     return voteCommentToServer(id, comment)
       .then((data) => {
         dispatch(voteForComment(data));
-        localStorage.setItem(id, comment.option);
-        const value = localStorage.getItem(id);
-        console.log(value);
       })
       .catch((e) => {
         console.warn("handleVoteComment: ", e);

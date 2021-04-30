@@ -7,9 +7,9 @@ import { formatDate } from "../utils/api";
 import Comment from "./Comment";
 
 function CommentsList(props) {
-  const { commentsForPost } = props;
+  const { sortedComments } = props;
 
-  if (!commentsForPost || commentsForPost.length === 0) {
+  if (!sortedComments || sortedComments.length === 0) {
     return (
       <Card>
         <Card.Body>
@@ -23,7 +23,7 @@ function CommentsList(props) {
     <div>
       <h2>Comments List</h2>
       <ListGroup>
-        {commentsForPost.map((comment) => (
+        {sortedComments.map((comment) => (
           <Comment key={comment.id} comment={comment} postId={props.postId} />
         ))}
       </ListGroup>
@@ -44,11 +44,12 @@ function mapStateToProps({ comments }, { postId }) {
         id,
         time,
         voteScore,
+        timestamp,
       };
     });
   console.log(commentsForPost);
   return {
-    commentsForPost,
+    sortedComments: commentsForPost ? commentsForPost.sort(( a, b ) => b.timestamp - a.timestamp) : null,
   };
 }
 

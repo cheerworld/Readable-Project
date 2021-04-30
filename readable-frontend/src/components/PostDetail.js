@@ -13,7 +13,7 @@ function PostDetail(props) {
   const [downVoteDisable, onChangeDownVoteDisable] = useState(false);
   const [color, onChangeColor] = useState("black");
 
-
+  
   useEffect(() => {
     function getVoteValue() {
       if (props.newPost !== null) {
