@@ -5,6 +5,8 @@ import { formatDate } from "../utils/api";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { handleVotePost } from "../actions/posts";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 function PostBrief(props) {
   console.log(props.newPost);
@@ -53,17 +55,18 @@ function PostBrief(props) {
   };
 
   return (
-    <div>
-      <button
-        className="postDetailButton"
+    <div className="listGroup">
+     <Card className="votesForPost">
+      <Button
+        variant="light"
         onClick={() => onClickUpVote(id)}
         disabled={upVoteDisable}
       >
         {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
-      </button>
-      <p style={{ color: color }}>{voteScore} votes</p>
-      <button
-        className="postDetailButton"
+      </Button>
+      <Card.Text style={{ color: color }}>{voteScore} votes</Card.Text>
+      <Button
+        variant="light"
         onClick={() => onClickDownVote(id)}
         disabled={downVoteDisable}
       >
@@ -72,13 +75,14 @@ function PostBrief(props) {
         ) : (
           <GoArrowDown />
         )}
-      </button>
+      </Button>
+     </Card>
 
       <ListGroup.Item as={Link} action to={`/posts/${id}`}>
-        <div>
-          <div>
-            <p>Posted by {author}</p>
-            <p>{time}</p>
+        <div className="postBrief">
+          <div className="postNameDate">
+            <div className="marginAfterName">Posted by {author}</div>
+            <div>{time}</div>
           </div>
           <h3>{title}</h3>
           <p>{commentCount} comments</p>

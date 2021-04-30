@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  margin: 3px 0;
+  margin: 3px 5px;
 }
 
 .postDetailButton {
@@ -17,9 +17,52 @@
   color: #3ec1d3;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navBar {
+  margin-bottom: 30px;
+}
+
+.sortButtons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.listGroup {
+  display: flex;
+}
+
+.votesForPost {
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postBrief {
+  display: flex;
+  flex-direction: column;
+}
+
+.postNameDate {
+  display: flex;
+  flex-direction: row;
+}
+
+.marginAfterName {
+  margin-right: 20px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  margin: 40px;
+}
+
+.footerP {
+  font-size: 1rem;
+  color: #28527a;
+  padding-top: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -27,24 +27,24 @@ function SortPosts(props) {
   };
 
   return (
-    <div>
+    <div className="sortButtons">
       <ButtonGroup className="mr-2" aria-label="first group">
-        <Button onClick={byVoteScoreHigh} variant="info">
+        <Button onClick={byVoteScoreHigh} variant="light">
           Vote from highest
         </Button>
       </ButtonGroup>
       <ButtonGroup className="mr-2" aria-label="second group">
-        <Button onClick={byVoteScoreLow} variant="info">
+        <Button onClick={byVoteScoreLow} variant="light">
           Vote from lowest
         </Button>
       </ButtonGroup>
       <ButtonGroup className="mr-2" aria-label="third group">
-        <Button onClick={byDateLatest} variant="info">
+        <Button onClick={byDateLatest} variant="light">
           Date from latest
         </Button>
       </ButtonGroup>
       <ButtonGroup className="mr-2" aria-label="forth group">
-        <Button onClick={byDateOldest} variant="info">
+        <Button onClick={byDateOldest} variant="light">
           Date from oldest
         </Button>
       </ButtonGroup>

@@ -10,16 +10,13 @@ import CategoryPosts from "./components/CategoryPosts";
 import PostView from "./components/PostView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-
 function App(props) {
-
   const { dispatch } = props;
 
   useEffect(() => {
     async function fetchData() {
       dispatch(handleGetCategories());
       dispatch(handleGetPosts());
-
     }
     fetchData();
   }, [dispatch]);
@@ -35,6 +32,18 @@ function App(props) {
           <Route path="/createPost" component={CreatePost} />
           <Route path="/edit/:postId" component={CreatePost} />
         </Switch>
+        <footer>
+          <p className="footerP">
+            <span role="img" aria-label="Tulip">
+              🌷{" "}
+            </span>
+            Made by Yuguo Zhao
+            <span role="img" aria-label="Hibiscus">
+              {" "}
+              🌺
+            </span>
+          </p>
+        </footer>
       </div>
     </Router>
   );

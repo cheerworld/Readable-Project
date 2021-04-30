@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import PostBrief from "./PostBrief";
+import SortPosts from "./SortPosts";
 
 function CategoryPosts(props) {
   console.log(props);
@@ -31,11 +32,12 @@ function CategoryPosts(props) {
   }
 
   return (
-    <ListGroup>
-      {ids && ids.map((id) => (
-        <PostBrief key={id} postId={id} />
-      ))}
-    </ListGroup>
+    <div>
+      <SortPosts />
+      <ListGroup>
+        {ids && ids.map((id) => <PostBrief key={id} postId={id} />)}
+      </ListGroup>
+    </div>
   );
 }
 
@@ -44,12 +46,12 @@ function mapStateToProps({ posts }, props) {
   console.log(name);
 
   const categoryPostsId = posts
-      .filter((post) => post.category === name)
-      .map((post) => {
-        const { id } = post;
-        return id;
-      });
-    console.log(categoryPostsId);
+    .filter((post) => post.category === name)
+    .map((post) => {
+      const { id } = post;
+      return id;
+    });
+  console.log(categoryPostsId);
 
   return {
     ids: name ? categoryPostsId : null,

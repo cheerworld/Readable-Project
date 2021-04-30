@@ -13,7 +13,6 @@ function PostDetail(props) {
   const [downVoteDisable, onChangeDownVoteDisable] = useState(false);
   const [color, onChangeColor] = useState("black");
 
-
   useEffect(() => {
     function getVoteValue() {
       if (props.newPost !== null) {
@@ -29,23 +28,15 @@ function PostDetail(props) {
         }
       }
     }
-    window.addEventListener("storage", getVoteValue);
 
-
-    return () => {
-      window.removeEventListener("storage", getVoteValue)
-    }
-  }, [props.newPost])
+    getVoteValue();
+  }, [props.newPost]);
 
   if (props.newPost === null) {
     return <h1>No post found</h1>;
   }
 
   const { id, title, author, commentCount, time, voteScore } = props.newPost;
-
-
-
-
 
   const deleteButton = () => {
     props.dispatch(handleDeletePost(id));
@@ -85,26 +76,26 @@ function PostDetail(props) {
         <h3>{title}</h3>
         <p>{commentCount} comments</p>
         <div>
-        <button
-          className="postDetailButton"
-          onClick={() => onClickUpVote(id)}
-          disabled={upVoteDisable}
-        >
-          {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
-        </button>
-        <p style={{ color: color }}>{voteScore} votes</p>
+          <button
+            className="postDetailButton"
+            onClick={() => onClickUpVote(id)}
+            disabled={upVoteDisable}
+          >
+            {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
+          </button>
+          <p style={{ color: color }}>{voteScore} votes</p>
 
-        <button
-          className="postDetailButton"
-          onClick={() => onClickDownVote(id)}
-          disabled={downVoteDisable}
-        >
-          {downVoteDisable ? (
-            <GoArrowDown className="downArrow" />
-          ) : (
-            <GoArrowDown />
-          )}
-        </button>
+          <button
+            className="postDetailButton"
+            onClick={() => onClickDownVote(id)}
+            disabled={downVoteDisable}
+          >
+            {downVoteDisable ? (
+              <GoArrowDown className="downArrow" />
+            ) : (
+              <GoArrowDown />
+            )}
+          </button>
         </div>
         <Button
           onClick={() => props.history.push(`/edit/${id}`)}
