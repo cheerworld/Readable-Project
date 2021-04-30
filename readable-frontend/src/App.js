@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+import React, { useEffect } from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { handleGetCategories } from "./actions/categories";
@@ -14,6 +13,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App(props) {
 
+  const { dispatch } = props;
+  
   useEffect(() => {
     async function fetchData() {
       props.dispatch(handleGetCategories());

@@ -22,7 +22,7 @@ function CreatePost(props) {
       }
     }
     editPost();
-  }, []);
+  }, [post, postId]);
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(title, text, name, selectCategory);

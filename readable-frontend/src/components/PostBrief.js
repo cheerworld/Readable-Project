@@ -13,6 +13,23 @@ function PostBrief(props) {
   const [color, onChangeColor] = useState("black");
   const { id, title, author, commentCount, time, voteScore } = props.newPost;
 
+  useEffect(() => {
+    function getVoteValue() {
+      const value = localStorage.getItem(id);
+      console.log(value);
+      if (value && value === "downVote") {
+        onChangeDownVoteDisable(true);
+        onChangeColor("#3ec1d3");
+      }
+      if (value && value === "upVote") {
+        onChangeUpVoteDisable(true);
+        onChangeColor("#ff165d");
+      }
+    }
+
+    getVoteValue();
+  }, [id])
+
   const onClickDownVote = (id) => {
     onChangeDownVoteDisable(true);
     onChangeColor("#3ec1d3");

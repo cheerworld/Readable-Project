@@ -51,6 +51,9 @@ export function handleVotePost(id, post) {
     return votePostToServer(id, post)
       .then((data) => {
         dispatch(votePost(data));
+        localStorage.setItem(id, post.option);
+        const value = localStorage.getItem(id);
+        console.log(value);
       })
       .catch((e) => {
         console.warn("Error in handleVotePost: ", e);

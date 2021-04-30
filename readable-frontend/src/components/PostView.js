@@ -6,22 +6,22 @@ import { handleGetComments } from "../actions/comments";
 import AddComment from "./AddComment";
 
 function PostView(props) {
+  const { id, dispatch } = props;
+
   useEffect(() => {
-    const allComments = async () => {
-      try {
-        props.dispatch(handleGetComments(props.id));
-      } catch (e) {
-        console.warn("Problem getting comments: ", e);
-      }
+    function allComments() {
+
+    dispatch(handleGetComments(id));
+
     };
     allComments();
-  }, []);
+  }, [dispatch, id]);
   return (
     <div>
       <h1>Post View</h1>
-      <PostDetail postId={props.id} />
-      <AddComment postId={props.id} />
-      <CommentsList postId={props.id} />
+      <PostDetail postId={id} />
+      <AddComment postId={id} />
+      <CommentsList postId={id} />
     </div>
   );
 }

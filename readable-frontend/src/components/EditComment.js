@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { generateId, editCommentToServer } from "../utils/api";
-import { handleAddComment } from "../actions/comments";
 import { RiEdit2Fill } from "react-icons/ri";
 import { handleEditComment } from "../actions/comments";
 
@@ -24,7 +22,7 @@ function EditComment(props) {
       }
     }
     editComment();
-  }, [props.comment]);
+  }, [props.comment, props.commentId]);
 
   const onSubmit = (e) => {
     e.preventDefault();

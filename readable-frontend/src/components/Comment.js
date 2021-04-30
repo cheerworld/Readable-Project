@@ -13,7 +13,24 @@ function Comment(props) {
   const [downVoteDisable, onChangeDownVoteDisable] = useState(false);
   const [color, onChangeColor] = useState("black");
 
-  const { comment, postId } = props;
+  const { comment } = props;
+
+  useEffect(() => {
+    function getVoteValue() {
+      const value = localStorage.getItem(comment.id);
+      console.log(value);
+      if (value && value === "downVote") {
+        onChangeDownVoteDisable(true);
+        onChangeColor("#3ec1d3");
+      }
+      if (value && value === "upVote") {
+        onChangeUpVoteDisable(true);
+        onChangeColor("#ff165d");
+      }
+    }
+
+    getVoteValue();
+  }, [comment.id])
 
   const onClickUpVote = (id) => {
     onChangeUpVoteDisable(true);

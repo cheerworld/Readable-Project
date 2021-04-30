@@ -6,18 +6,42 @@ import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { RiDeleteBinFill, RiEdit2Fill } from "react-icons/ri";
 import { formatDate } from "../utils/api";
 import { handleDeletePost, handleVotePost } from "../actions/posts";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 function PostDetail(props) {
   const [upVoteDisable, onChangeUpVoteDisable] = useState(false);
   const [downVoteDisable, onChangeDownVoteDisable] = useState(false);
   const [color, onChangeColor] = useState("black");
 
+
+  useEffect(() => {
+    function getVoteValue() {
+      if (props.newPost !== null) {
+        const value = localStorage.getItem(props.newPost.id);
+        console.log(value);
+        if (value && value === "downVote") {
+          onChangeDownVoteDisable(true);
+          onChangeColor("#3ec1d3");
+        }
+        if (value && value === "upVote") {
+          onChangeUpVoteDisable(true);
+          onChangeColor("#ff165d");
+        }
+      }
+    }
+
+    getVoteValue();
+  }, [props.newPost])
+
   if (props.newPost === null) {
     return <h1>No post found</h1>;
   }
 
   const { id, title, author, commentCount, time, voteScore } = props.newPost;
+
+
+
+
 
   const deleteButton = () => {
     props.dispatch(handleDeletePost(id));
