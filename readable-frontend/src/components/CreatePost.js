@@ -60,9 +60,9 @@ function CreatePost(props) {
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Form.Group>
-        <h3>Create Post: </h3>
+    <Form onSubmit={onSubmit} className="createPostForm">
+      <h3>Create Post: </h3>
+      <Form.Group className="inputForm">
         <Form.Label>Title</Form.Label>
         <Form.Control
           type="text"
@@ -71,7 +71,7 @@ function CreatePost(props) {
           onChange={(e) => onChangeTitle(e.target.value)}
         />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className="inputForm">
         <Form.Label>Text</Form.Label>
         <Form.Control
           type="text"
@@ -80,7 +80,7 @@ function CreatePost(props) {
           onChange={(e) => onChangeText(e.target.value)}
         />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className="inputForm">
         <Form.Label>Author</Form.Label>
         <Form.Control
           type="text"
@@ -89,7 +89,7 @@ function CreatePost(props) {
           onChange={(e) => onChangeName(e.target.value)}
         />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className="inputForm">
         <Form.Label>Category</Form.Label>
         <Form.Control
           as="select"
@@ -115,6 +115,7 @@ function CreatePost(props) {
           name === "" ||
           selectCategory === "select"
         }
+        block
       >
         Submit
       </Button>

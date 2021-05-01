@@ -45,7 +45,7 @@ function EditComment(props) {
 
   return (
     <div>
-      <Button className="postDetailButton" onClick={handleShow}>
+      <Button variant="light" className="postDetailButton" onClick={handleShow}>
         <RiEdit2Fill />
         Edit
       </Button>

@@ -60,14 +60,15 @@ function Comment(props) {
   };
 
   return (
-    <ListGroup.Item>
-      <div>
-        <div>
-          <p>Posted by {comment.author}</p>
+    <ListGroup.Item className="postBrief">
+
+        <div className="row">
+          <p className="marginAfterName">Posted by {comment.author}</p>
           <p>{comment.time}</p>
         </div>
-        <h5>{comment.body}</h5>
-
+        <h4>{comment.body}</h4>
+        <div className="bottomGroup">
+        <div className="votesGroup">
         <button
           className="postDetailButton"
           onClick={() => onClickUpVote(comment.id)}
@@ -75,7 +76,7 @@ function Comment(props) {
         >
           {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
         </button>
-        <p style={{ color: color }}>{comment.voteScore} votes</p>
+        <div style={{ color: color }}>{comment.voteScore} votes</div>
 
         <button
           className="postDetailButton"
@@ -88,15 +89,17 @@ function Comment(props) {
             <GoArrowDown />
           )}
         </button>
+        </div>
         <EditComment commentId={comment.id} postId={props.postId} />
         <Button
+          variant="light"
           className="postDetailButton"
           onClick={(e) => onClickDelete(e, comment.id)}
         >
           <RiDeleteBinFill />
           Delete
         </Button>
-      </div>
+        </div>
     </ListGroup.Item>
   );
 }

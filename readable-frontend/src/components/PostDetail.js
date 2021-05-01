@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { RiDeleteBinFill, RiEdit2Fill } from "react-icons/ri";
 import { formatDate } from "../utils/api";
@@ -15,6 +16,7 @@ function PostDetail(props) {
 
   useEffect(() => {
     function getVoteValue() {
+      //console.log(props.newPost.commentCount)
       if (props.newPost !== null) {
         const value = localStorage.getItem(props.newPost.id);
         console.log(value);
@@ -30,7 +32,7 @@ function PostDetail(props) {
     }
 
     getVoteValue();
-  }, [props.newPost]);
+  });
 
   if (props.newPost === null) {
     return <h1>No post found</h1>;
@@ -67,56 +69,59 @@ function PostDetail(props) {
   };
 
   return (
-    <ListGroup.Item>
-      <div>
-        <div>
-          <p>Posted by {author}</p>
-          <p>{time}</p>
+    <div className="listGroup center">
+      <Card className="votesForPost">
+        <Button
+          variant="light"
+          onClick={() => onClickUpVote(id)}
+          disabled={upVoteDisable}
+        >
+          {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
+        </Button>
+        <Card.Text style={{ color: color }}>{voteScore} votes</Card.Text>
+
+        <Button
+          variant="light"
+          onClick={() => onClickDownVote(id)}
+          disabled={downVoteDisable}
+        >
+          {downVoteDisable ? (
+            <GoArrowDown className="downArrow" />
+          ) : (
+            <GoArrowDown />
+          )}
+        </Button>
+      </Card>
+
+      <ListGroup.Item className="postBrief grow">
+        <div className="row">
+          <div className="marginAfterName">Posted by {author}</div>
+          <div>{time}</div>
         </div>
         <h3>{title}</h3>
-        <p>{commentCount} comments</p>
-        <div>
-          <button
-            className="postDetailButton"
-            onClick={() => onClickUpVote(id)}
-            disabled={upVoteDisable}
-          >
-            {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
-          </button>
-          <p style={{ color: color }}>{voteScore} votes</p>
+        <div className="bottomGroup">
+          <div>{commentCount} comments</div>
 
           <button
+            onClick={() => props.history.push(`/edit/${id}`)}
             className="postDetailButton"
-            onClick={() => onClickDownVote(id)}
-            disabled={downVoteDisable}
           >
-            {downVoteDisable ? (
-              <GoArrowDown className="downArrow" />
-            ) : (
-              <GoArrowDown />
-            )}
+            <RiEdit2Fill />
+            Edit
+          </button>
+          <button className="postDetailButton" onClick={deleteButton}>
+            <RiDeleteBinFill />
+            Delete
           </button>
         </div>
-        <Button
-          onClick={() => props.history.push(`/edit/${id}`)}
-          className="postDetailButton"
-        >
-          <RiEdit2Fill />
-          Edit
-        </Button>
-        <Button className="postDetailButton" onClick={deleteButton}>
-          <RiDeleteBinFill />
-          Delete
-        </Button>
-      </div>
-    </ListGroup.Item>
+      </ListGroup.Item>
+    </div>
   );
 }
 
 function mapStateToProps({ posts }, { postId }) {
-  //console.log(postId);
   const post = posts.filter((post) => post.id === postId);
-  //console.log(post);
+
   if (post.length !== 0) {
     const { id, title, author, commentCount, timestamp, voteScore } = post[0];
     const time = formatDate(timestamp);

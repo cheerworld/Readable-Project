@@ -43,13 +43,64 @@
   flex-direction: column;
 }
 
-.postNameDate {
+.row {
   display: flex;
   flex-direction: row;
+  padding: 0 15px;
+}
+
+.center {
+  justify-content: center;
+}
+
+.space {
+  justify-content: space-between;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.listDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .marginAfterName {
   margin-right: 20px;
+}
+
+.votesGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottomGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.addComment {
+  display: flex;
+  margin: 50px 0;
+}
+
+.createPostForm {
+  margin: 0 50px;
+  padding: 20px;
+  border-radius: 10px;
+  border-style: solid;
+}
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 20px;
 }
 
 footer {
@@ -64,6 +115,8 @@ footer {
   color: #28527a;
   padding-top: 20px;
 }
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

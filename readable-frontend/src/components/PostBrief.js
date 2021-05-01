@@ -80,7 +80,7 @@ function PostBrief(props) {
 
       <ListGroup.Item as={Link} action to={`/posts/${id}`}>
         <div className="postBrief">
-          <div className="postNameDate">
+          <div className="row">
             <div className="marginAfterName">Posted by {author}</div>
             <div>{time}</div>
           </div>

@@ -32,8 +32,8 @@ function AddComment(props) {
   };
 
   return (
-    <div>
-      <Button variant="primary" onClick={handleShow}>
+    <div className="addComment">
+      <Button variant="secondary" size="lg" onClick={handleShow}>
         Add New Comment
       </Button>
       <Modal show={show} onHide={handleClose}>
