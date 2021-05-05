@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import { generateId } from "../utils/api";
 import { handleAddComment } from "../actions/comments";
 import { addToCommentCount } from "../actions/posts";
+import CommentModal from "./CommentModal";
+import { RiEdit2Fill } from "react-icons/ri";
+import { handleEditComment } from "../actions/comments";
 
 function AddComment(props) {
   const [show, setShow] = useState(false);
@@ -14,7 +15,18 @@ function AddComment(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const onSubmit = (e) => {
+
+  useEffect(() => {
+    function editComment() {
+      if (props.commentId && props.comment) {
+        onChangeText(props.comment[0].body);
+        onChangeName(props.comment[0].author);
+      }
+    }
+    editComment();
+  }, [props.comment, props.commentId]);
+
+  const onAddSubmit = (e) => {
     e.preventDefault();
 
     onChangeText("");
@@ -32,52 +44,69 @@ function AddComment(props) {
     handleClose();
   };
 
+  const onEditSubmit = (e) => {
+    e.preventDefault();
+    onChangeText("");
+    onChangeName("");
+
+    if (props.commentId && props.comment) {
+      const editedComment = {
+        id: props.commentId,
+        timestamp: Date.now(),
+        body: text,
+        author: name,
+      };
+      props.dispatch(handleEditComment(editedComment));
+    }
+
+    handleClose();
+  };
+
   return (
-    <div className="addComment">
-      <Button variant="secondary" size="lg" onClick={handleShow}>
-        Add New Comment
-      </Button>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Comment:</Modal.Title>
-        </Modal.Header>
-        <Form onSubmit={onSubmit}>
-          <Modal.Body>
-            <Form.Group>
-              <Form.Label>Comment</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your comment here"
-                value={text}
-                onChange={(e) => onChangeText(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Author</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name here"
-                value={name}
-                onChange={(e) => onChangeName(e.target.value)}
-              />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button
-              variant="primary"
-              type="submit"
-              disabled={text === "" || name === ""}
-            >
-              Submit
-            </Button>
-          </Modal.Footer>
-        </Form>
-      </Modal>
+    <div>
+      <CommentModal
+        show={show}
+        handleClose={handleClose}
+        onSubmit={props.commentId ? onEditSubmit : onAddSubmit}
+        text={text}
+        onChangeText={(e) => onChangeText(e.target.value)}
+        name={name}
+        onChangeName={(e) => onChangeName(e.target.value)}
+      >
+        {props.commentId ? (
+          <Button
+            variant="light"
+            className="postDetailButton"
+            onClick={handleShow}
+          >
+            <RiEdit2Fill />
+            Edit
+          </Button>
+        ) : (
+          <Button
+            className="addComment"
+            variant="secondary"
+            size="lg"
+            onClick={handleShow}
+          >
+            Add New Comment
+          </Button>
+        )}
+      </CommentModal>
     </div>
   );
 }
 
-export default connect()(AddComment);
+function mapStateToProps({ comments }, { commentId, postId }) {
+  const comment =
+    postId && commentId
+      ? comments[postId].filter((comment) => comment.id === commentId)
+      : null;
+
+  return {
+    comment,
+    commentId,
+  };
+}
+
+export default connect(mapStateToProps)(AddComment);

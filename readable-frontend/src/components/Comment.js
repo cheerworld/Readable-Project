@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { handleDeleteComment } from "../actions/comments";
-import EditComment from "./EditComment";
+import AddComment from "./AddComment";
 import { handleVoteComment } from "../actions/comments";
 import { deductToCommentCount } from "../actions/posts";
 
@@ -98,7 +98,7 @@ function Comment(props) {
           )}
         </button>
         </div>
-        <EditComment commentId={comment.id} postId={props.postId} />
+        <AddComment commentId={comment.id} postId={props.postId} />
         <Button
           variant="light"
           className="postDetailButton"
