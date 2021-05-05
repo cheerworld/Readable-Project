@@ -150,3 +150,17 @@ export const getAllPosts = async () => {
   const posts = await response.json();
   return posts;
 };
+
+export const getInitialData = async () => {
+  try {
+    const data = await Promise.all([getAllCategory(), getAllPosts()]);
+    const [categories, posts] = data;
+
+    return {
+      ...categories,
+      posts,
+    };
+  } catch (e) {
+    console.warn("getInitialData: ", e);
+  }
+};

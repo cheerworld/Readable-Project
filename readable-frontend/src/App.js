@@ -1,22 +1,19 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { handleGetCategories } from "./actions/categories";
-import { handleGetPosts } from "./actions/posts";
 import PostList from "./components/PostList";
 import Header from "./components/Header";
 import CreatePost from "./components/CreatePost";
 import CategoryPosts from "./components/CategoryPosts";
 import PostView from "./components/PostView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import { handleInitialData } from "./actions/shared";
 function App(props) {
   const { dispatch } = props;
 
   useEffect(() => {
     async function fetchData() {
-      dispatch(handleGetCategories());
-      dispatch(handleGetPosts());
+    dispatch(handleInitialData());
     }
     fetchData();
   }, [dispatch]);

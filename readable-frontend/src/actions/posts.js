@@ -1,5 +1,4 @@
 import {
-  getAllPosts,
   addPostToServer,
   deletePost,
   editPostToServer,
@@ -136,18 +135,6 @@ export function handleAddPost(post) {
       return addedPost;
     } catch (e) {
       console.warn("Error in handleAddPost: ", e);
-    }
-  };
-}
-
-export function handleGetPosts() {
-  return async (dispatch) => {
-    try {
-      const getAll = await getAllPosts();
-      dispatch(getPosts(getAll));
-      return getAll;
-    } catch (e) {
-      console.warn("Error in handleGetPosts: ", e);
     }
   };
 }
