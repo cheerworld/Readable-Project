@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { formatDate } from "../utils/api";
-
 import Comment from "./Comment";
 
 function CommentsList(props) {
@@ -47,7 +46,7 @@ function mapStateToProps({ comments }, { postId }) {
         timestamp,
       };
     });
-  console.log(commentsForPost);
+
   return {
     sortedComments: commentsForPost ? commentsForPost.sort(( a, b ) => b.timestamp - a.timestamp) : null,
   };

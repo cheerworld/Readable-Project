@@ -9,14 +9,12 @@ export function getCategories(categories) {
 }
 
 export function handleGetCategories() {
-  return (dispatch) => {
-    return getAllCategory()
-      .then(data => {
-        const newData = data.categories;
-        dispatch(getCategories(newData))
-      })
-      .catch((e) => {
-        console.warn("Error in handleGetCategories: ", e);
-      })
-  }
+  return async (dispatch) => {
+    try {
+      const allCategory = await getAllCategory();
+      dispatch(getCategories(allCategory.categories));
+    } catch (e) {
+      console.warn("Error in handleGetCategories: ", e);
+    }
+  };
 }

@@ -6,7 +6,7 @@ import PostBrief from "./PostBrief";
 import SortPosts from "./SortPosts";
 
 function PostList(props) {
-  console.log(props);
+
   const { ids } = props;
 
   if (ids.length === 0) {

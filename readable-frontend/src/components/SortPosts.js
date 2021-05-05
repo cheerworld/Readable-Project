@@ -52,10 +52,5 @@ function SortPosts(props) {
   );
 }
 
-function mapStateToProps({ posts }) {
-  return {
-    posts,
-  };
-}
 
-export default connect(mapStateToProps)(SortPosts);
+export default connect()(SortPosts);

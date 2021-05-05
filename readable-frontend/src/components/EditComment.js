@@ -26,7 +26,6 @@ function EditComment(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(text, name);
     onChangeText("");
     onChangeName("");
 
@@ -96,7 +95,6 @@ function mapStateToProps({ comments }, { commentId, postId }) {
   const comment = comments[postId].filter(
     (comment) => comment.id === commentId
   );
-  console.log(comment, commentId);
   return {
     comment,
     commentId,

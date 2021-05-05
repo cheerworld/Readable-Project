@@ -7,30 +7,36 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { handleDeleteComment } from "../actions/comments";
 import EditComment from "./EditComment";
 import { handleVoteComment } from "../actions/comments";
+import { deductToCommentCount } from "../actions/posts";
 
 function Comment(props) {
   const [upVoteDisable, onChangeUpVoteDisable] = useState(false);
   const [downVoteDisable, onChangeDownVoteDisable] = useState(false);
   const [color, onChangeColor] = useState("black");
 
-  const { comment } = props;
+  const { comment, postId } = props;
 
   useEffect(() => {
-    function getVoteValue() {
-      const value = localStorage.getItem(comment.id);
-      console.log(value);
-      if (value && value === "downVote") {
-        onChangeDownVoteDisable(true);
-        onChangeColor("#3ec1d3");
-      }
-      if (value && value === "upVote") {
-        onChangeUpVoteDisable(true);
-        onChangeColor("#ff165d");
+    async function getVoteValue() {
+      try {
+        const value = await localStorage.getItem(comment.id);
+
+        if (value && value === "downVote") {
+          onChangeDownVoteDisable(true);
+          onChangeColor("#3ec1d3");
+        }
+        if (value && value === "upVote") {
+          onChangeUpVoteDisable(true);
+          onChangeColor("#ff165d");
+        }
+      } catch (e) {
+        console.warn("Error in getVoteValue in Comment.js:", e);
       }
     }
 
     getVoteValue();
   }, [comment.id])
+
 
   const onClickUpVote = (id) => {
     onChangeUpVoteDisable(true);
@@ -57,6 +63,8 @@ function Comment(props) {
   const onClickDelete = (e, id) => {
     e.preventDefault();
     props.dispatch(handleDeleteComment(id));
+    props.dispatch(deductToCommentCount(postId));
+
   };
 
   return (
@@ -104,9 +112,4 @@ function Comment(props) {
   );
 }
 
-function mapStateToProps({ comments }) {
-  return {
-    comments,
-  };
-}
-export default connect(mapStateToProps)(Comment);
+export default connect()(Comment);

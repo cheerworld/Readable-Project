@@ -14,6 +14,8 @@ export const SORT_POST_BY_VOTE_FROM_HIGH = "SORT_POST_BY_VOTE_FROM_HIGH";
 export const SORT_POST_BY_VOTE_FROM_LOW = "SORT_POST_BY_VOTE_FROM_LOW";
 export const SORT_POST_BY_DATE_LATEST = "SORT_POST_BY_DATE_LATEST";
 export const SORT_POST_BY_DATE_OLDEST = "SORT_POST_BY_DATE_OLDEST";
+export const ADD_COMMENTCOUNT_POST = "ADD_COMMENTCOUNT_POST";
+export const DEDUCT_COMMENTCOUNT_POST = "DEDUCT_COMMENTCOUNT_POST";
 
 export function sortByDateOldest() {
   return {
@@ -74,65 +76,78 @@ export function votePost(post) {
   };
 }
 
+export function addToCommentCount(id) {
+  return {
+    type: ADD_COMMENTCOUNT_POST,
+    id,
+  };
+}
+
+export function deductToCommentCount(id) {
+  return {
+    type: DEDUCT_COMMENTCOUNT_POST,
+    id,
+  };
+}
+
 export function handleVotePost(id, post) {
-  return (dispatch) => {
-    localStorage.setItem(id, post.option);
-    const value = localStorage.getItem(id);
-    console.log(value);
-    return votePostToServer(id, post)
-      .then((data) => {
-        dispatch(votePost(data));
-      })
-      .catch((e) => {
-        console.warn("Error in handleVotePost: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      await localStorage.setItem(id, post.option);
+
+      const votedPost = await votePostToServer(id, post);
+      dispatch(votePost(votedPost));
+      return votedPost;
+    } catch (e) {
+      console.warn("Error in handleVotePost: ", e);
+    }
   };
 }
 
 export function handleEditPost(post) {
-  return (dispatch) => {
-    return editPostToServer(post)
-      .then((data) => {
-        dispatch(editPost(data));
-      })
-      .catch((e) => {
-        console.warn("Error in handleEditPost: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const editedPostServer = await editPostToServer(post);
+      dispatch(editPost(editedPostServer));
+      return editedPostServer;
+    } catch (e) {
+      console.warn("Error in handleEditPost: ", e);
+    }
   };
 }
 
 export function handleDeletePost(postId) {
-  return (dispatch) => {
-    return deletePost(postId)
-      .then((data) => {
-        dispatch(deleteAPost(postId));
-      })
-      .catch((e) => {
-        console.warn("Error in handleAddPost: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const deletedPost = await deletePost(postId);
+      dispatch(deleteAPost(postId));
+      return deletedPost;
+    } catch (e) {
+      console.warn("Error in handleAddPost: ", e);
+    }
   };
 }
 
 export function handleAddPost(post) {
-  return (dispatch) => {
-    return addPostToServer(post)
-      .then((data) => {
-        dispatch(addNewPost(data));
-      })
-      .catch((e) => {
-        console.warn("Error in handleAddPost: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const addedPost = await addPostToServer(post);
+      dispatch(addNewPost(addedPost));
+      return addedPost;
+    } catch (e) {
+      console.warn("Error in handleAddPost: ", e);
+    }
   };
 }
 
 export function handleGetPosts() {
-  return (dispatch) => {
-    return getAllPosts()
-      .then((data) => {
-        dispatch(getPosts(data));
-      })
-      .catch((e) => {
-        console.warn("Error in handleGetPosts: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const getAll = await getAllPosts();
+      dispatch(getPosts(getAll));
+      return getAll;
+    } catch (e) {
+      console.warn("Error in handleGetPosts: ", e);
+    }
   };
 }

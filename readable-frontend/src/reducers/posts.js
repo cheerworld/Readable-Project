@@ -8,6 +8,8 @@ import {
   SORT_POST_BY_VOTE_FROM_LOW,
   SORT_POST_BY_DATE_LATEST,
   SORT_POST_BY_DATE_OLDEST,
+  ADD_COMMENTCOUNT_POST,
+  DEDUCT_COMMENTCOUNT_POST,
 } from "../actions/posts";
 
 export default function posts(state = [], action) {
@@ -34,6 +36,26 @@ export default function posts(state = [], action) {
         }
       });
       return votedPost;
+    case ADD_COMMENTCOUNT_POST:
+      const newPostState = state.filter((post) => post.id === action.id)[0];
+      const restPost = state.filter((post) => post.id !== action.id);
+      return [
+        ...restPost,
+        {
+          ...newPostState,
+          commentCount: newPostState.commentCount + 1,
+        },
+      ];
+    case DEDUCT_COMMENTCOUNT_POST:
+      const filteredPost = state.filter((post) => post.id === action.id)[0];
+      const otherPosts = state.filter((post) => post.id !== action.id);
+      return [
+        ...otherPosts,
+        {
+          ...filteredPost,
+          commentCount: filteredPost.commentCount - 1,
+        },
+      ];
     case SORT_POST_BY_VOTE_FROM_HIGH:
       const copyState = [...state];
       const sortVoteHigh = copyState.sort((a, b) => b.voteScore - a.voteScore);

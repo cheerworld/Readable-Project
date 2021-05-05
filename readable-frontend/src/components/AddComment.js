@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { generateId } from "../utils/api";
 import { handleAddComment } from "../actions/comments";
+import { addToCommentCount } from "../actions/posts";
 
 function AddComment(props) {
   const [show, setShow] = useState(false);
@@ -15,7 +16,7 @@ function AddComment(props) {
   const handleShow = () => setShow(true);
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(text, name);
+
     onChangeText("");
     onChangeName("");
     const newComment = {
@@ -27,7 +28,7 @@ function AddComment(props) {
     };
 
     props.dispatch(handleAddComment(newComment));
-
+    props.dispatch(addToCommentCount(props.postId));
     handleClose();
   };
 
@@ -79,11 +80,4 @@ function AddComment(props) {
   );
 }
 
-function mapStateToProps({ posts }, { postId }) {
-  return {
-    posts,
-    postId,
-  };
-}
-
-export default connect(mapStateToProps)(AddComment);
+export default connect()(AddComment);

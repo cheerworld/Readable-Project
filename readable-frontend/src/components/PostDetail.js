@@ -15,19 +15,22 @@ function PostDetail(props) {
   const [color, onChangeColor] = useState("black");
 
   useEffect(() => {
-    function getVoteValue() {
-      //console.log(props.newPost.commentCount)
-      if (props.newPost !== null) {
-        const value = localStorage.getItem(props.newPost.id);
-        console.log(value);
-        if (value && value === "downVote") {
-          onChangeDownVoteDisable(true);
-          onChangeColor("#3ec1d3");
+    async function getVoteValue() {
+      try {
+        if (props.newPost !== null) {
+          const value = await localStorage.getItem(props.newPost.id);
+
+          if (value && value === "downVote") {
+            onChangeDownVoteDisable(true);
+            onChangeColor("#3ec1d3");
+          }
+          if (value && value === "upVote") {
+            onChangeUpVoteDisable(true);
+            onChangeColor("#ff165d");
+          }
         }
-        if (value && value === "upVote") {
-          onChangeUpVoteDisable(true);
-          onChangeColor("#ff165d");
-        }
+      } catch (e) {
+        console.warn("Error in getVoteValue:", e);
       }
     }
 

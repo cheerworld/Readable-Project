@@ -23,9 +23,9 @@ function CreatePost(props) {
     }
     editPost();
   }, [post, postId]);
+  
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(title, text, name, selectCategory);
 
     if (postId && post.length !== 0) {
       const editPost = {
@@ -125,10 +125,10 @@ function CreatePost(props) {
 
 function mapStateToProps({ categories, posts }, props) {
   const allCategory = categories.map((categoty) => categoty.name);
-  console.log(allCategory);
+
   const { postId } = props.match.params;
   const post = posts.filter((post) => post.id === postId);
-  console.log(postId, post);
+
   return {
     allCategory,
     postId,

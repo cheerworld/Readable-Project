@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 
 function Header(props) {
-  console.log(props);
+
   const { names, history } = props;
 
   const toCategory = (e, name) => {
@@ -47,7 +47,7 @@ function Header(props) {
 
 function mapStateToProps({ categories }) {
   const names = categories.map((category) => category.name);
-  //console.log(names)
+
   return {
     names,
   };

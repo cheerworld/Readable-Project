@@ -49,64 +49,63 @@ export function voteForComment(comment) {
 }
 
 export function handleVoteComment(id, comment) {
-  return (dispatch) => {
-    localStorage.setItem(id, comment.option);
-    const value = localStorage.getItem(id);
-    console.log(value);
-    return voteCommentToServer(id, comment)
-      .then((data) => {
-        dispatch(voteForComment(data));
-      })
-      .catch((e) => {
-        console.warn("handleVoteComment: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      await localStorage.setItem(id, comment.option);
+
+      const votedComment = await voteCommentToServer(id, comment);
+      dispatch(voteForComment(votedComment));
+      return votedComment;
+    } catch (e) {
+      console.warn("handleVoteComment: ", e);
+    }
   };
 }
 
 export function handleEditComment(comment) {
-  return (dispatch) => {
-    return editCommentToServer(comment)
-      .then((data) => {
-        dispatch(editComment(data));
-      })
-      .catch((e) => {
-        console.warn("handleEditComment: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const editedComment = await editCommentToServer(comment);
+      dispatch(editComment(editedComment));
+      return editedComment;
+    } catch (e) {
+      console.warn("handleEditComment: ", e);
+    }
   };
 }
 
 export function handleDeleteComment(id) {
-  return (dispatch) => {
-    return deleteCommentToServer(id)
-      .then((data) => {
-        dispatch(deleteAComment(data.parentId, data.id));
-      })
-      .catch((e) => {
-        console.warn("handleDeleteComment: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const deletedComment = await deleteCommentToServer(id);
+      dispatch(deleteAComment(deletedComment.parentId, deletedComment.id));
+      return deletedComment;
+    } catch (e) {
+      console.warn("handleDeleteComment: ", e);
+    }
   };
 }
 
 export function handleAddComment(comment) {
-  return (dispatch) => {
-    return addCommentToPostServer(comment)
-      .then((data) => {
-        dispatch(addAComment(data));
-      })
-      .catch((e) => {
-        console.warn("handleAddComment: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const addedComment = await addCommentToPostServer(comment);
+      dispatch(addAComment(addedComment));
+      return addedComment;
+    } catch (e) {
+      console.warn("handleAddComment: ", e);
+    }
   };
 }
 
 export function handleGetComments(id) {
-  return (dispatch) => {
-    return getCommentsFromServer(id)
-      .then((data) => {
-        dispatch(getComments(id, data));
-      })
-      .catch((e) => {
-        console.warn("handleGetComments: ", e);
-      });
+  return async (dispatch) => {
+    try {
+      const comments = await getCommentsFromServer(id);
+      dispatch(getComments(id, comments));
+      return comments;
+    } catch (e) {
+      console.warn("handleGetComments: ", e);
+    }
   };
 }

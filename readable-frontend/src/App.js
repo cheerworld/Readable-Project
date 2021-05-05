@@ -34,13 +34,13 @@ function App(props) {
         </Switch>
         <footer>
           <p className="footerP">
-            <span role="img" aria-label="Tulip">
-              🌷{" "}
+            <span role="img" aria-label="Dog">
+              🐶{" "}
             </span>
             Made by Yuguo Zhao
-            <span role="img" aria-label="Hibiscus">
+            <span role="img" aria-label="Cat">
               {" "}
-              🌺
+              🐱
             </span>
           </p>
         </footer>

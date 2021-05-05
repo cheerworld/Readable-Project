@@ -5,32 +5,35 @@ import { formatDate } from "../utils/api";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { handleVotePost } from "../actions/posts";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function PostBrief(props) {
-  console.log(props.newPost);
   const [upVoteDisable, onChangeUpVoteDisable] = useState(false);
   const [downVoteDisable, onChangeDownVoteDisable] = useState(false);
   const [color, onChangeColor] = useState("black");
   const { id, title, author, commentCount, time, voteScore } = props.newPost;
 
   useEffect(() => {
-    function getVoteValue() {
-      const value = localStorage.getItem(id);
-      console.log(value);
-      if (value && value === "downVote") {
-        onChangeDownVoteDisable(true);
-        onChangeColor("#3ec1d3");
-      }
-      if (value && value === "upVote") {
-        onChangeUpVoteDisable(true);
-        onChangeColor("#ff165d");
+    async function getVoteValue() {
+      try {
+        const value = await localStorage.getItem(id);
+
+        if (value && value === "downVote") {
+          onChangeDownVoteDisable(true);
+          onChangeColor("#3ec1d3");
+        }
+        if (value && value === "upVote") {
+          onChangeUpVoteDisable(true);
+          onChangeColor("#ff165d");
+        }
+      } catch (e) {
+        console.warn("Error in getVoteValue in PostBrief.js:", e);
       }
     }
 
     getVoteValue();
-  }, [id])
+  }, [id]);
 
   const onClickDownVote = (id) => {
     onChangeDownVoteDisable(true);
@@ -56,27 +59,27 @@ function PostBrief(props) {
 
   return (
     <div className="listGroup">
-     <Card className="votesForPost">
-      <Button
-        variant="light"
-        onClick={() => onClickUpVote(id)}
-        disabled={upVoteDisable}
-      >
-        {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
-      </Button>
-      <Card.Text style={{ color: color }}>{voteScore} votes</Card.Text>
-      <Button
-        variant="light"
-        onClick={() => onClickDownVote(id)}
-        disabled={downVoteDisable}
-      >
-        {downVoteDisable ? (
-          <GoArrowDown className="downArrow" />
-        ) : (
-          <GoArrowDown />
-        )}
-      </Button>
-     </Card>
+      <Card className="votesForPost">
+        <Button
+          variant="light"
+          onClick={() => onClickUpVote(id)}
+          disabled={upVoteDisable}
+        >
+          {upVoteDisable ? <GoArrowUp className="upArrow" /> : <GoArrowUp />}
+        </Button>
+        <Card.Text style={{ color: color }}>{voteScore} votes</Card.Text>
+        <Button
+          variant="light"
+          onClick={() => onClickDownVote(id)}
+          disabled={downVoteDisable}
+        >
+          {downVoteDisable ? (
+            <GoArrowDown className="downArrow" />
+          ) : (
+            <GoArrowDown />
+          )}
+        </Button>
+      </Card>
 
       <ListGroup.Item as={Link} action to={`/posts/${id}`}>
         <div className="postBrief">

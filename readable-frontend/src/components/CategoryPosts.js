@@ -7,8 +7,8 @@ import PostBrief from "./PostBrief";
 import SortPosts from "./SortPosts";
 
 function CategoryPosts(props) {
-  console.log(props);
-  const { ids, history } = props;
+
+  const { ids, history, name } = props;
 
   const home = () => {
     history.push("/");
@@ -33,6 +33,7 @@ function CategoryPosts(props) {
 
   return (
     <div>
+      {name ? <h2>{name}</h2> : null}
       <SortPosts />
       <ListGroup>
         {ids && ids.map((id) => <PostBrief key={id} postId={id} />)}
@@ -43,7 +44,6 @@ function CategoryPosts(props) {
 
 function mapStateToProps({ posts }, props) {
   const { name } = props.match.params;
-  console.log(name);
 
   const categoryPostsId = posts
     .filter((post) => post.category === name)
@@ -51,10 +51,10 @@ function mapStateToProps({ posts }, props) {
       const { id } = post;
       return id;
     });
-  console.log(categoryPostsId);
 
   return {
     ids: name ? categoryPostsId : null,
+    name: name.charAt(0).toUpperCase() + name.slice(1),
   };
 }
 
