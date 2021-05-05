@@ -21,134 +21,170 @@ export function generateId() {
 }
 
 export const votePostToServer = async (id, option) => {
-  const response = await fetch(`${api}/posts/${id}`, {
-    method: "POST",
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(option),
-  });
-  const votedPost = await response.json();
-  console.log(votedPost);
-  return votedPost;
+  try {
+    const response = await fetch(`${api}/posts/${id}`, {
+      method: "POST",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(option),
+    });
+    const votedPost = await response.json();
+    return votedPost;
+  } catch (e) {
+    console.warn("Error in votePostToServer server call: ", e);
+  }
 };
 
 export const voteCommentToServer = async (id, option) => {
-  const response = await fetch(`${api}/comments/${id}`, {
-    method: "POST",
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(option),
-  });
-  const votedComment = await response.json();
-  console.log(votedComment);
-  return votedComment;
+  try {
+    const response = await fetch(`${api}/comments/${id}`, {
+      method: "POST",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(option),
+    });
+    const votedComment = await response.json();
+    return votedComment;
+  } catch (e) {
+    console.warn("Error in voteCommentToServer server call: ", e);
+  }
 };
 
 export const editCommentToServer = async (comment) => {
-  const response = await fetch(`${api}/comments/${comment.id}`, {
-    method: "PUT",
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(comment),
-  });
-  const editedComment = await response.json();
-  console.log(editedComment);
-  return editedComment;
+  try {
+    const response = await fetch(`${api}/comments/${comment.id}`, {
+      method: "PUT",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    });
+    const editedComment = await response.json();
+    return editedComment;
+  } catch (e) {
+    console.warn("Error in editCommentToServer server call: ", e);
+  }
 };
 
 export const deleteCommentToServer = async (id) => {
-  const response = await fetch(`${api}/comments/${id}`, {
-    method: "DELETE",
-    headers,
-  });
-  const comment = await response.json();
-  console.log(comment);
-  return comment;
+  try {
+    const response = await fetch(`${api}/comments/${id}`, {
+      method: "DELETE",
+      headers,
+    });
+    const comment = await response.json();
+    return comment;
+  } catch (e) {
+    console.warn("Error in deleteCommentToServer server call: ", e);
+  }
 };
 
 export const addCommentToPostServer = async (comment) => {
-  const response = await fetch(`${api}/comments`, {
-    method: "POST",
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(comment),
-  });
-  const newComment = await response.json();
-  console.log(newComment);
-  return newComment;
+  try {
+    const response = await fetch(`${api}/comments`, {
+      method: "POST",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    });
+    const newComment = await response.json();
+    return newComment;
+  } catch (e) {
+    console.warn("Error in addCommentToPostServer server call: ", e);
+  }
 };
 
 export const getCommentsFromServer = async (id) => {
-  const response = await fetch(`${api}/posts/${id}/comments`, {
-    method: "GET",
-    headers,
-  });
-  const comments = await response.json();
-  console.log(comments);
-  return comments;
+  try {
+    const response = await fetch(`${api}/posts/${id}/comments`, {
+      method: "GET",
+      headers,
+    });
+    const comments = await response.json();
+    return comments;
+  } catch (e) {
+    console.warn("Error in getCommentsFromServer server call: ", e);
+  }
 };
 
 export const editPostToServer = async (post) => {
-  const response = await fetch(`${api}/posts/${post.id}`, {
-    method: "PUT",
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(post),
-  });
-  const editedPost = await response.json();
-  //console.log(editedPost);
-  return editedPost;
+  try {
+    const response = await fetch(`${api}/posts/${post.id}`, {
+      method: "PUT",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+    const editedPost = await response.json();
+    return editedPost;
+  } catch (e) {
+    console.warn("Error in editPostToServer server call: ", e);
+  }
 };
 
 export const deletePost = async (id) => {
-  const response = await fetch(`${api}/posts/${id}`, {
-    method: "DELETE",
-    headers,
-  });
-  const post = await response.json();
-  return post;
+  try {
+    const response = await fetch(`${api}/posts/${id}`, {
+      method: "DELETE",
+      headers,
+    });
+    const post = await response.json();
+    return post;
+  } catch (e) {
+    console.warn("Error in deletePost server call: ", e);
+  }
 };
 
 export const addPostToServer = async (post) => {
-  console.log(post);
-  const response = await fetch(`${api}/posts`, {
-    method: "POST",
-    headers: {
-      ...headers,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(post),
-  });
-  const newPosts = await response.json();
-  return newPosts;
+  try {
+    const response = await fetch(`${api}/posts`, {
+      method: "POST",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+    const newPosts = await response.json();
+    return newPosts;
+  } catch (e) {
+    console.warn("Error in addPostToServer server call: ", e);
+  }
 };
 
 export const getAllCategory = async () => {
-  const response = await fetch(`${api}/categories`, {
-    method: "GET",
-    headers,
-  });
-  const categories = await response.json();
-  return categories;
+  try {
+    const response = await fetch(`${api}/categories`, {
+      method: "GET",
+      headers,
+    });
+    const categories = await response.json();
+    return categories;
+  } catch (e) {
+    console.warn("Error in getAllCategory server call: ", e);
+  }
 };
 
 export const getAllPosts = async () => {
-  const response = await fetch(`${api}/posts`, {
-    method: "GET",
-    headers,
-  });
-  const posts = await response.json();
-  return posts;
+  try {
+    const response = await fetch(`${api}/posts`, {
+      method: "GET",
+      headers,
+    });
+    const posts = await response.json();
+    return posts;
+  } catch (e) {
+    console.warn("Error in getAllPosts server call: ", e);
+  }
 };
 
 export const getInitialData = async () => {
@@ -161,6 +197,6 @@ export const getInitialData = async () => {
       posts,
     };
   } catch (e) {
-    console.warn("getInitialData: ", e);
+    console.warn("Error in getInitialData server call: ", e);
   }
 };

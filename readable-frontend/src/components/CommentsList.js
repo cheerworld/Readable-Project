@@ -31,7 +31,7 @@ function CommentsList(props) {
 }
 
 function mapStateToProps({ comments }, { postId }) {
-  console.log(comments, postId);
+
   const commentsForPost =
     comments[postId] &&
     comments[postId].map((comment) => {
