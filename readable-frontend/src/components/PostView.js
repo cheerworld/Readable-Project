@@ -16,6 +16,7 @@ function PostView(props) {
     };
     allComments();
   }, [dispatch, id]);
+
   return (
     <div>
       <h1>Post View</h1>
