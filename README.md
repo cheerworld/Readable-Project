@@ -41,6 +41,6 @@ To get started developing right away:
 
 ## More Information
  There is more information regarding the API server in
-  [README file](reactnd-project-readable-starter/api-server/README.md).
+  [README file](reactnd-project-readable-starter/api-server/README.md)
  , and how to create a React App in
   [another README file](readable-frontend/README.md).
