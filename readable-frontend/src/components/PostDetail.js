@@ -7,6 +7,7 @@ import { handleDeletePost } from "../actions/posts";
 import { withRouter } from "react-router-dom";
 import VoteButtons from "./VoteButtons";
 import Card from "react-bootstrap/Card";
+import PropTypes from 'prop-types';
 
 function PostDetail(props) {
   if (props.newPost === null) {
@@ -60,7 +61,6 @@ function mapStateToProps({ posts }, { postId }) {
     const { id, title, author, commentCount, timestamp, voteScore } = post[0];
     const time = formatDate(timestamp);
     return {
-      posts,
       newPost: {
         id,
         title,
@@ -73,6 +73,13 @@ function mapStateToProps({ posts }, { postId }) {
   } else {
     return { newPost: null };
   }
+}
+
+PostDetail.propTypes = {
+  postId: PropTypes.string,
+  newPost: PropTypes.object,
+  history: PropTypes.object,
+  dispatch: PropTypes.func,
 }
 
 export default withRouter(connect(mapStateToProps)(PostDetail));

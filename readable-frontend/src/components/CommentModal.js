@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import PropTypes from 'prop-types';
 
 function CommentModal(props) {
   const {
@@ -59,6 +60,18 @@ function CommentModal(props) {
       </Modal>
     </Fragment>
   );
+}
+
+CommentModal.propTypes = {
+  children: PropTypes.object,
+  show: PropTypes.bool,
+  handleClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+  text: PropTypes.string,
+  onChangeText: PropTypes.func,
+  name: PropTypes.string,
+  onChangeName: PropTypes.func,
+  dispatch: PropTypes.func,
 }
 
 export default connect()(CommentModal);

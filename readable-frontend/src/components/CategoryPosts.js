@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import PostBrief from "./PostBrief";
 import SortPosts from "./SortPosts";
+import PropTypes from 'prop-types';
 
 function CategoryPosts(props) {
 
@@ -57,5 +58,12 @@ function mapStateToProps({ posts }, props) {
     name: name.charAt(0).toUpperCase() + name.slice(1),
   };
 }
+
+CategoryPosts.propTypes = {
+  ids: PropTypes.array,
+  name: PropTypes.string,
+  history: PropTypes.object,
+}
+
 
 export default connect(mapStateToProps)(CategoryPosts);

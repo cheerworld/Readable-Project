@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Card from "react-bootstrap/Card";
 import PostBrief from "./PostBrief";
 import SortPosts from "./SortPosts";
+import PropTypes from 'prop-types';
 
 function PostList(props) {
 
@@ -37,6 +38,10 @@ function mapStateToProps({ posts }) {
   return {
     ids,
   };
+}
+
+PostList.propTypes = {
+  ids: PropTypes.array,
 }
 
 export default connect(mapStateToProps)(PostList);

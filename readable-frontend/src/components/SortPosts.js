@@ -8,6 +8,7 @@ import {
   sortByDateLatest,
   sortByDateOldest,
 } from "../actions/posts";
+import PropTypes from 'prop-types';
 
 function SortPosts(props) {
   const byVoteScoreHigh = () => {
@@ -52,5 +53,8 @@ function SortPosts(props) {
   );
 }
 
+SortPosts.propTypes = {
+  dispatch: PropTypes.func,
+}
 
 export default connect()(SortPosts);

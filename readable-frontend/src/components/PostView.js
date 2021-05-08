@@ -4,6 +4,7 @@ import PostDetail from "./PostDetail";
 import CommentsList from "./CommentsList";
 import { handleGetComments } from "../actions/comments";
 import AddComment from "./AddComment";
+import PropTypes from 'prop-types';
 
 function PostView(props) {
   const { id, dispatch } = props;
@@ -32,6 +33,11 @@ function mapStateToProps({ posts }, props) {
   return {
     id,
   };
+}
+
+PostView.propTypes = {
+  id: PropTypes.string,
+  dispatch: PropTypes.func,
 }
 
 export default connect(mapStateToProps)(PostView);

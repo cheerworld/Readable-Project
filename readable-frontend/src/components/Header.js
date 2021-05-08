@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { withRouter } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
+import PropTypes from 'prop-types';
 
 function Header(props) {
 
@@ -51,6 +52,11 @@ function mapStateToProps({ categories }) {
   return {
     names,
   };
+}
+
+Header.propTypes = {
+  history: PropTypes.object,
+  names: PropTypes.array,
 }
 
 export default withRouter(connect(mapStateToProps)(Header));

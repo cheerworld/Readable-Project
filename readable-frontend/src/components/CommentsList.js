@@ -4,6 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { formatDate } from "../utils/api";
 import Comment from "./Comment";
+import PropTypes from 'prop-types';
 
 function CommentsList(props) {
   const { sortedComments } = props;
@@ -50,6 +51,11 @@ function mapStateToProps({ comments }, { postId }) {
   return {
     sortedComments: commentsForPost ? commentsForPost.sort(( a, b ) => b.timestamp - a.timestamp) : null,
   };
+}
+
+CommentsList.propTypes = {
+  sortedComments: PropTypes.array,
+  postId: PropTypes.string,
 }
 
 export default connect(mapStateToProps)(CommentsList);

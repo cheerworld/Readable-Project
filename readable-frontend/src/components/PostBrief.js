@@ -5,10 +5,11 @@ import { formatDate } from "../utils/api";
 import { Link } from "react-router-dom";
 import VoteButtons from "./VoteButtons";
 import Card from "react-bootstrap/Card";
+import PropTypes from 'prop-types';
 
 function PostBrief(props) {
   const { id, title, author, commentCount, time, voteScore } = props.newPost;
-
+    
   return (
     <div className="listGroup">
       <Card className="votesForPost">
@@ -45,6 +46,11 @@ function mapStateToProps({ posts }, { postId }) {
       voteScore,
     },
   };
+}
+
+PostBrief.propTypes = {
+  newPost: PropTypes.object,
+  postId: PropTypes.string,
 }
 
 export default connect(mapStateToProps)(PostBrief);

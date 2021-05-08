@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { generateId } from "../utils/api";
 import { handleAddPost, handleEditPost } from "../actions/posts";
+import PropTypes from 'prop-types';
 
 function CreatePost(props) {
   const [title, onChangeTitle] = useState("");
@@ -23,7 +24,7 @@ function CreatePost(props) {
     }
     editPost();
   }, [post, postId]);
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -135,4 +136,13 @@ function mapStateToProps({ categories, posts }, props) {
     post,
   };
 }
+
+CreatePost.propTypes = {
+  allCategory: PropTypes.array,
+  dispatch: PropTypes.func,
+  history: PropTypes.object,
+  post: PropTypes.array,
+  postId: PropTypes.string,
+}
+
 export default connect(mapStateToProps)(CreatePost);

@@ -7,6 +7,7 @@ import { addToCommentCount } from "../actions/posts";
 import CommentModal from "./CommentModal";
 import { RiEdit2Fill } from "react-icons/ri";
 import { handleEditComment } from "../actions/comments";
+import PropTypes from 'prop-types';
 
 function AddComment(props) {
   const [show, setShow] = useState(false);
@@ -107,6 +108,12 @@ function mapStateToProps({ comments }, { commentId, postId }) {
     comment,
     commentId,
   };
+}
+
+AddComment.propTypes = {
+  commentId: PropTypes.string,
+  postId: PropTypes.string,
+  dispatch: PropTypes.func,
 }
 
 export default connect(mapStateToProps)(AddComment);

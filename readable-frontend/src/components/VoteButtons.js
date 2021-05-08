@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { handleVotePost } from "../actions/posts";
 import { handleVoteComment } from "../actions/comments";
+import PropTypes from 'prop-types';
 
 function VoteButtons(props) {
   const [upVoteDisable, onChangeUpVoteDisable] = useState(false);
@@ -93,6 +94,12 @@ function VoteButtons(props) {
       </Button>
     </Fragment>
   );
+}
+
+VoteButtons.propTypes = {
+  dispatch: PropTypes.func,
+  id: PropTypes.string,
+  children: PropTypes.array,
 }
 
 export default connect()(VoteButtons);
