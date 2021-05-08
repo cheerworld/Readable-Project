@@ -38,3 +38,9 @@ To get started developing right away:
  ![New Comment View](./readable-frontend/webImage/newComment.PNG)
  ### New Comment Modal View
  When you click the add comment button, the new comment modal will show. You need to fill out both comment and author inputs to be able to submit a new comment. This modal will also show when you click "edit" on a comment, existing data will be populated in the form.
+
+## More Information
+ There is more information regarding the API server in
+  [README file](reactnd-project-readable-starter/api-server/README.md).
+ And how to create a React App in
+  [README file](readable-frontend/README.md).
