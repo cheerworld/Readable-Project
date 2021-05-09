@@ -20,7 +20,7 @@ function PostView(props) {
 
   return (
     <div>
-      <h1>Post View</h1>
+      <h2>Post View</h2>
       <PostDetail postId={id} />
       <AddComment postId={id} />
       <CommentsList postId={id} />

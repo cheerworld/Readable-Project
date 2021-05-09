@@ -8,7 +8,9 @@ import {
   sortByDateLatest,
   sortByDateOldest,
 } from "../actions/posts";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+
 
 function SortPosts(props) {
   const byVoteScoreHigh = () => {
@@ -29,6 +31,15 @@ function SortPosts(props) {
 
   return (
     <div className="sortButtons">
+      <ButtonGroup className="mr-2" aria-label="zero group">
+        <Button
+          variant="secondary"
+          size="lg"
+          onClick={() => props.history.push(`/createPost`)}
+        >
+          Create New Post
+        </Button>
+      </ButtonGroup>
       <ButtonGroup className="mr-2" aria-label="first group">
         <Button onClick={byVoteScoreHigh} variant="light">
           Vote from highest
@@ -55,6 +66,6 @@ function SortPosts(props) {
 
 SortPosts.propTypes = {
   dispatch: PropTypes.func,
-}
+};
 
-export default connect()(SortPosts);
+export default withRouter(connect()(SortPosts));

@@ -23,7 +23,7 @@
 
 .sortButtons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 30px;
 }
 
@@ -41,6 +41,7 @@
 .postBrief {
   display: flex;
   flex-direction: column;
+  color: black;
 }
 
 .row {

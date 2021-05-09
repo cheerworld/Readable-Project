@@ -22,6 +22,7 @@ function PostList(props) {
 
   return (
     <div>
+      <h2>Home View</h2>
       <SortPosts />
       <ListGroup>
         {ids && ids.map((id) => <PostBrief key={id} postId={id} />)}

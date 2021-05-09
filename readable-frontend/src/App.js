@@ -8,6 +8,7 @@ import CategoryPosts from "./components/CategoryPosts";
 import PostView from "./components/PostView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { handleInitialData } from "./actions/shared";
+
 function App(props) {
   const { dispatch } = props;
 
@@ -24,10 +25,10 @@ function App(props) {
         <Header />
         <Switch>
           <Route path="/" exact component={PostList} />
-          <Route path="/categories/:name" component={CategoryPosts} />
-          <Route path="/posts/:id" component={PostView} />
-          <Route path="/createPost" component={CreatePost} />
-          <Route path="/edit/:postId" component={CreatePost} />
+          <Route path="/createPost" exact component={CreatePost} />
+          <Route path="/edit/:postId" exact component={CreatePost} />
+          <Route path="/:name" exact component={CategoryPosts} />
+          <Route path="/:name/:id" exact component={PostView} />          
         </Switch>
         <footer>
           <p className="footerP">

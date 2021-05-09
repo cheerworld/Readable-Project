@@ -7,14 +7,23 @@ import { handleDeletePost } from "../actions/posts";
 import { withRouter } from "react-router-dom";
 import VoteButtons from "./VoteButtons";
 import Card from "react-bootstrap/Card";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function PostDetail(props) {
   if (props.newPost === null) {
     return <h1>No post found</h1>;
   }
 
-  const { id, title, author, commentCount, time, voteScore } = props.newPost;
+  const {
+    id,
+    title,
+    author,
+    commentCount,
+    time,
+    voteScore,
+    body,
+    category,
+  } = props.newPost;
 
   const deleteButton = () => {
     props.dispatch(handleDeletePost(id));
@@ -30,10 +39,17 @@ function PostDetail(props) {
 
       <ListGroup.Item className="postBrief grow">
         <div className="row">
+          <button
+            onClick={() => props.history.push(`/${category}`)}
+            className="postDetailButton marginAfterName"
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)} Category
+          </button>
           <div className="marginAfterName">Posted by {author}</div>
           <div>{time}</div>
         </div>
         <h3>{title}</h3>
+        <p>{body}</p>
         <div className="bottomGroup">
           <div>{commentCount} comments</div>
 
@@ -58,7 +74,16 @@ function mapStateToProps({ posts }, { postId }) {
   const post = posts.filter((post) => post.id === postId);
 
   if (post.length !== 0) {
-    const { id, title, author, commentCount, timestamp, voteScore } = post[0];
+    const {
+      id,
+      title,
+      author,
+      commentCount,
+      timestamp,
+      voteScore,
+      body,
+      category,
+    } = post[0];
     const time = formatDate(timestamp);
     return {
       newPost: {
@@ -68,6 +93,8 @@ function mapStateToProps({ posts }, { postId }) {
         commentCount,
         time,
         voteScore,
+        body,
+        category,
       },
     };
   } else {
@@ -80,6 +107,6 @@ PostDetail.propTypes = {
   newPost: PropTypes.object,
   history: PropTypes.object,
   dispatch: PropTypes.func,
-}
+};
 
 export default withRouter(connect(mapStateToProps)(PostDetail));
