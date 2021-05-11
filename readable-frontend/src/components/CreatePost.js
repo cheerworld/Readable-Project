@@ -45,6 +45,8 @@ function CreatePost(props) {
       };
 
       props.dispatch(handleEditPost(editPost));
+
+      props.history.push(`/${selectCategory}/${postId}`);
     } else {
       const newPost = {
         id: generateId(),
@@ -56,6 +58,8 @@ function CreatePost(props) {
       };
 
       props.dispatch(handleAddPost(newPost));
+
+      props.history.push(`/${selectCategory}/${newPost.id}`);
     }
 
     onChangeText("");
@@ -63,7 +67,6 @@ function CreatePost(props) {
     onChangeName("");
     onChangeCategory("select");
 
-    props.history.push("/");
   };
 
   if (post.length === 0 && postId) {
@@ -139,7 +142,7 @@ function mapStateToProps({ categories, posts }, props) {
 
   const { postId } = props.match.params;
   const post = posts.filter((post) => post.id === postId);
-console.log(post, postId)
+
   return {
     allCategory,
     postId,
