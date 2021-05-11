@@ -21,6 +21,11 @@ function CreatePost(props) {
         onChangeText(post[0].body);
         onChangeName(post[0].author);
         onChangeCategory(post[0].category);
+      } else {
+        onChangeTitle("");
+        onChangeText("");
+        onChangeName("");
+        onChangeCategory("select");
       }
     }
     editPost();
@@ -134,7 +139,7 @@ function mapStateToProps({ categories, posts }, props) {
 
   const { postId } = props.match.params;
   const post = posts.filter((post) => post.id === postId);
-
+console.log(post, postId)
   return {
     allCategory,
     postId,
