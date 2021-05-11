@@ -5,9 +5,10 @@ import CommentsList from "./CommentsList";
 import { handleGetComments } from "../actions/comments";
 import AddComment from "./AddComment";
 import PropTypes from 'prop-types';
+import ErrorPage404 from "./ErrorPage404";
 
 function PostView(props) {
-  const { id, dispatch } = props;
+  const { id, dispatch, categoryExist, postExist } = props;
 
   useEffect(() => {
     function allComments() {
@@ -17,6 +18,10 @@ function PostView(props) {
     };
     allComments();
   }, [dispatch, id]);
+
+  if(!categoryExist || !postExist) {
+    return <ErrorPage404 />
+  }
 
   return (
     <div>
@@ -28,16 +33,23 @@ function PostView(props) {
   );
 }
 
-function mapStateToProps({ posts }, props) {
-  const { id } = props.match.params;
+function mapStateToProps({ posts, categories }, props) {
+  const { id, name } = props.match.params;
+  const categoryExist = categories.some((category) => category.name === name)
+  const postExist = posts.some(post => post.id === id)
+
   return {
     id,
+    categoryExist,
+    postExist,
   };
 }
 
 PostView.propTypes = {
   id: PropTypes.string,
   dispatch: PropTypes.func,
+  categoryExist: PropTypes.bool,
+  postExist: PropTypes.bool,
 }
 
 export default connect(mapStateToProps)(PostView);

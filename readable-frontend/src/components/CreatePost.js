@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { generateId } from "../utils/api";
 import { handleAddPost, handleEditPost } from "../actions/posts";
 import PropTypes from 'prop-types';
+import ErrorPage404 from "./ErrorPage404";
 
 function CreatePost(props) {
   const [title, onChangeTitle] = useState("");
@@ -59,6 +60,10 @@ function CreatePost(props) {
 
     props.history.push("/");
   };
+
+  if (post.length === 0 && postId) {
+    return <ErrorPage404 />
+  }
 
   return (
     <Form onSubmit={onSubmit} className="createPostForm">

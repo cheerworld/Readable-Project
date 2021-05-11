@@ -37,6 +37,7 @@ function Header(props) {
               </NavDropdown.Item>
             ))}
           </NavDropdown>
+          <Nav.Link onClick={() => history.push(`/PageNotFound`)}>404</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link onClick={createPost}>Create Post <IoMdAdd/></Nav.Link>

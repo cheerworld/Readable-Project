@@ -10,10 +10,6 @@ import Card from "react-bootstrap/Card";
 import PropTypes from "prop-types";
 
 function PostDetail(props) {
-  if (props.newPost === null) {
-    return <h1>No post found</h1>;
-  }
-
   const {
     id,
     title,
@@ -73,33 +69,29 @@ function PostDetail(props) {
 function mapStateToProps({ posts }, { postId }) {
   const post = posts.filter((post) => post.id === postId);
 
-  if (post.length !== 0) {
-    const {
+  const {
+    id,
+    title,
+    author,
+    commentCount,
+    timestamp,
+    voteScore,
+    body,
+    category,
+  } = post[0];
+  const time = formatDate(timestamp);
+  return {
+    newPost: {
       id,
       title,
       author,
       commentCount,
-      timestamp,
+      time,
       voteScore,
       body,
       category,
-    } = post[0];
-    const time = formatDate(timestamp);
-    return {
-      newPost: {
-        id,
-        title,
-        author,
-        commentCount,
-        time,
-        voteScore,
-        body,
-        category,
-      },
-    };
-  } else {
-    return { newPost: null };
-  }
+    },
+  };
 }
 
 PostDetail.propTypes = {
