@@ -19,11 +19,11 @@ To get started developing right away:
 
 ## App View
 
- ![Readable App Home View](./readable-frontend/webImage/AppView.PNG)
+ ![Readable App Home View](./readable-frontend/webImage/home.PNG)
  ### Home View
  Home view shows you a list of posts with brief information. You can upVote or downVote this post. There are 4 ways for you to sort posts, it includes sort by highest or lowest votes and sort by latest or oldest date. You can click on each post to view the details of each post. There is a navigation bar at the top of each view. You can navigate to home, to an individual category, and to create a post.
 
- ![Individual Category View](./readable-frontend/webImage/categoryView.PNG)
+ ![Individual Category View](./readable-frontend/webImage/category.PNG)
  ### Individual Category View
  The individual category view is identical to the home view but filtered to only include posts with the selected category.
 
@@ -38,6 +38,10 @@ To get started developing right away:
  ![New Comment View](./readable-frontend/webImage/newComment.PNG)
  ### New Comment Modal View
  When you click the add comment button, the new comment modal will show. You need to fill out both comment and author inputs to be able to submit a new comment. This modal will also show when you click "edit" on a comment, existing data will be populated in the form.
+
+ ![Error Page View](./readable-frontend/webImage/error.PNG)
+ ### Error Page 404 View
+ When a user goes to a deleted post’s URL, a 404 page is displayed. 
 
 ## More Information
  There is more information regarding the API server in
